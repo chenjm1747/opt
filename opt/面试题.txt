@@ -1,0 +1,113 @@
+一、有文件file1
+
+1、查询file1里面空行的所在行号
+
+awk ‘{if($0~/^$/)print NR}’ file
+or
+grep -n ^$ file |awk ‘BEGIN{FS=”:”}{print $1}’
+
+2、查询file1以abc结尾的行
+grep abc$ file1
+
+3、打印出file1文件第1到第3行
+sed -n ‘1,3p’ file1
+head -3 file1
+
+二、如何将本地80端口的请求转发到8080端口，当前主机IP为192.168.2.1
+
+-A PREROUTING  -d 124.42.60.109 -p tcp -m tcp –dport 80 -j DNAT –to-destination 10.0.0.18:9000
+
+三、crontab
+
+在11月份内，每天的早上6点到12点中，每隔2小时执行一次/usr/bin/httpd.sh 怎么实现
+
+0 6-12/2 * 11 * /usr/bin/httpd.sh
+
+四、编写个shell脚本将/usr/local/test 目录下大于100K的文件转移到/tmp目录下
+
+#!/bin/bash
+for file in `ls /root`
+do
+       if [ -f $file ]; then
+              if [ `ls -l $file|awk '{print $5}'` -gt 10000 ];  then
+                     mv $file /tmp/
+              fi
+       fi
+done
+
+五、简述raid0 raid1 raid5 三种工作模式的工作原理及特点。
+
+RAID 0：连续以位或字节为单位分割数据，并行读/写于多个磁盘上，因此具有很高的数据传输率，但它没有数据冗余，因此并不能算是真正的RAID结构。RAID 0只是单纯地提高性能，并没有为数据的可靠性提供保证，而且其中的一个磁盘失效将影响到所有数据。因此，RAID 0不能应用于数据安全性要求高的场合。
+
+RAID 1：它是通过磁盘数据镜像实现数据冗余，在成对的独立磁盘上产生互为备份的数据。当原始数据繁忙时，可直接从镜像拷贝中读取数据，因此RAID 1可以提高读取性能。RAID 1是磁盘阵列中单位成本最高的，但提供了很高的数据安全性和可用性。当一个磁盘失效时，系统可以自动切换到镜像磁盘上读写 ，而不需要重组失效的数据。简单来说就是：镜象结构，类似于备份模式，一个数据被复制到两块硬盘上。
+
+RAID10:高可靠性与高效磁盘结构
+
+一个带区结构加一个镜象结构，因为两种结构各有优缺点，因此可以相互补充。
+
+主要用于容量不大，但要求速度和差错控制的数据库中。
+
+RAID5：分布式奇偶校验的独立磁盘结构，它的奇偶校验码存在于所有磁盘上，任何一个硬盘损坏，都可以根据其它硬盘上的校验位来重建损坏的数据。支持一块盘掉线后仍然正常运行。
+
+
+七、如何查看占用端口8080的进程
+
+lsof -i:8080
+ netstat -lntp|grep ":80 "
+
+
+九、你使用过监控软件吗？说说其特点
+
+使用nagios对服务器进行监控，其特点可实时实现手机短信、电子邮件、MSN、飞信报警。
+
+使用cacti对流量进行监控。
+
+十、你对现在运维工程师的理解和以及对其工作的认识
+
+运维工程师在公司当中责任重大，需要保证时刻为公司及客户提供最高、最快、最稳定、最安全的服务。运维工程师的一个小小的失误，很有可能会对公司及客户造成重大损失，因此运维工程师的工作需要严谨及富有创新精神。
+
+十一、linux下常用的DNS服务软件是什么，举出几种常用的DNS记录，如果域名abc.com配置好了一台邮件服务器,IP地址为202.106.0.20，我该如何做相关的解析？是否了解bind的智能解析，如果了解请简述一下其原理
+答案：
+1)常用的DNS软件是bind
+2)A记录 地址记录
+MX记录 邮件交换记录
+CNAME记录 别名域记录
+3)修改abc.com域名的配置文件，增加以下记录
+   IN      MX      10      mail.abc.com.
+mail  IN   A        202.106.0.20
+4)bind根据请求解析客户端的IP地址，做出不同的解析，其原理是在配置文件中，设定了view，在每个view都有客户端的IP地址段，bind服务器根据请求解析客户端的IP地址，匹配不同的view,再根据该view的配置，到相应的配置文件进行查询，将结果返回给请求的客户端。
+
+十二、通过apache访问日志access.log统计IP和每个地址访问的次数，按访问量列出前10名。
+日志格式样例如下
+192.168.1.247 – - [02/Jul/2010:23:44:59 +0800] “GET / HTTP/1.1″ 200 19
+答案：
+cat access_log | awk ‘{print $1}’ | uniq -c|sort -rn|head -10
+//这个别的方法也能统计,但有些命令是必要的 awk , sort,uniq ,主要看是否这些命令都使用了。
+
+十三、如何用mysql命令进行备份和恢复？以test库为例，创建一个备份，并再用此备份进行恢复。
+mysqldump -u root -p test  > test.sql
+mysql -u root -p test < test.sql
+//主要考对方msqldump > test.sql 和 mysql < test.sql
+十四、你认为在系统调优方面都包括哪些工作，以linux为例，请简明阐述，并举一些参数为例。
+答案：
+系统调优包括内核参数优化和应用优化2个方面，对方只要从这两方面来说，就可以了，尽量能有些经验的阐述。
+
+有个文件如下：
+http://a.domain.com/1.html
+http://b.domain.com/1.html
+http://c.domain.com/1.html
+http://a.domain.com/2.html
+http://b.domain.com/2.html
+http://a.domain.com/3.html
+
+要求：得到主机名（和域名），并统计哪个网址出现的次数，并排序。可以shell或C。
+得到的结果应该是:
+3 a.domain.com
+2 b.domain.com
+1 c.domain.com
+[root@mail ~]# awk ‘BEGIN{FS=”/”}{arr[$3]++}END{for(i in arr) print arr[i],i}’ list| sort -r    答案
+3 a.domain.com
+2 b.domain.com
+1 c.domain.com
+number of view: 516
+

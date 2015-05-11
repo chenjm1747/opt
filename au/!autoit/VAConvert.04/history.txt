@@ -1,0 +1,39 @@
+To Do:
+o Special handling of:  Class Blocks, Do loop
+o missing functions: CDate, DatePart, DateSerial, DateValue, Day, Filter, FormatCurrency
+  FormatDateTime, FormatNumber, FormatPercent, GetRef, Hour, InStrRev, Fix, IsEmpty
+  IsNull, Join, LBound, LoadPicture, LTrim, RTrim, Trim, Minute, Month, MonthName
+  Oct, RGB, ScriptEngine, ScriptEngineBuildVersion, ScriptEngineMajorVersion 
+  ScriptEngineMinorVersion, Second, SetLocale, Sgn, Space, StrComp, String
+  Time, TimeSerial, TimeValue, TypeName, VarType, Weekday, WeekdayName, Year
+
+History:
+Version 0.4
+- Fixing error message in GUI
+- Workaround for wscript.echo
+- Better handling of parenthesis for sub's
+- Implement ReDim
+- Set default destination file name in gui
+- Added some new commands in VATable.txt
+- Improvements for select constructs
+
+Version 0.3
+- Added command line switch (vaconvert VBSCRIPTFILE)
+- Added Gui to select source and destination file
+- Better handlung for prodedure calls
+- Fixing errors (e.g. endless loop)
+
+Version 0.2
+- Add some simple replace commands (VATable.txt)
+- Improve Select case 
+- Find variables without Dim
+- Find Constants
+- Add List of VBCommands (VBCommands.txt)
+
+Version 0.1
+- Better function handling
+- Added most VBScript functions
+- Include handling
+
+Version 0.01
+- First public release

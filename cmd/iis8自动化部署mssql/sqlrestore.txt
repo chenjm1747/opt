@@ -1,0 +1,26 @@
+USE master
+
+RESTORE DATABASE [ytaotaosoft]
+
+   FROM DISK = 'd:\a\y.bak'
+
+WITH 
+
+      MOVE 'ytaotaosoft_Data' TO 'd:\a\ytaotaosoft_Data.MDF', 
+
+      MOVE 'ytaotaosoft_Log' TO 'd:\a\ytaotaosoft_Log.LDF'
+
+GO
+
+
+CREATE LOGIN [NT AUTHORITY\IUSR] FROM WINDOWS WITH DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[¼òÌåÖÐÎÄ]
+GO
+
+USE [ytaotaosoft]
+GO
+
+/****** Object:  User [NT AUTHORITY\IUSR]    Script Date: 2014/11/27 9:25:35 ******/
+CREATE USER [NT AUTHORITY\IUSR] FOR LOGIN [NT AUTHORITY\IUSR]
+GO
+
+

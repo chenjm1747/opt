@@ -1,0 +1,1110 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="Description" content="Explains how ASP.NET web application can interact with Excel files, both reading and writing. Includes sample application with source code." />
+<meta name="Keywords" content="generating excel report" />
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+
+    { parsetags: 'explicit' }
+ 
+</script>
+<link href="/Style4.css" rel="stylesheet" type="text/css" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+	Generating Excel Report in ASP.NET 2.0
+</title></head>
+<body>
+<table border="0" width="970" id="headerTable" style="margin: 0 auto;"><tr><td>
+	 <div style="text-align:center"><a href="http://www.beansoftware.com/">
+		<img border="0" src="http://www.beansoftware.com/Images/Logo.jpg" width="149" height="80" alt="Bean Software Logo" />
+	 </a></div>
+</td><td align="right">
+<a  href="/searchcontrol.aspx"><img style="border-width:1px;border-color:#222222;" src="/ads/Search-Control-728x90.jpg" border="0" alt="ASP.NET Database Search Control" /></a>
+</td></tr></table>
+<table border="0" width="970" id="mainTable">
+<tr><td valign="top" id="leftCol">
+    
+<img width="190" height="0" src="http://www.beansoftware.com/Images/ep.gif" alt="" />
+
+    
+<div class="tblDown"><span class="MenuCaption"><a href="/Products.aspx">Products</a></span><br />
+<span class="bulletMain">
+ &nbsp; &nbsp; <a href="/Database-Search-Solution/">Database Search Solution</a><br />
+ &nbsp; &nbsp; <a href="/SearchControl.aspx">(<b><span style="color:red">New Version</span></b>) Search Control</a><br />
+ &nbsp; &nbsp; <a href="/SEO-Pager-Control/">SEO Pager</a><br />
+ &nbsp; &nbsp; <a href="/Highlighter.aspx">Highlighter</a><br />
+ &nbsp; &nbsp; <a href="/Shortcut-Controls/">Shortcut Controls</a><br />
+ &nbsp; &nbsp; <a href="/Crypt_Package.aspx">Crypt Package</a><br />
+</span></div>
+<div class="tblDown"><span class="MenuCaption"><a href="http://www.beansoftware.com/Free-ASP.NET-Controls/ASP.NET-Media-Player-Control.aspx">Free ASP.NET Controls</a></span><br />
+<span class="bulletMain">
+ &nbsp; &nbsp; <a href="http://www.beansoftware.com/Free-ASP.NET-Controls/Geotargeting-Component.aspx">Geotargeting Component</a><br />
+ &nbsp; &nbsp; <a href="http://www.beansoftware.com/Free-ASP.NET-Controls/ASP.NET-Media-Player-Control.aspx">ASP.NET Media Player Control</a><br />
+ &nbsp; &nbsp; <a href="http://www.beansoftware.com/Free-ASP.NET-Controls/JW-FLV-Control.aspx">Flash Video Player Control</a><br />
+</span></div>
+<div class="tblDown"><span class="MenuCaption"><a href="/Custom-Programming.aspx">Services</a></span><br />
+<span class="bulletMain">
+ &nbsp; &nbsp; <a href="/ASP.NET-Telecommute-Jobs/">ASP.NET Telecommute Jobs</a><br />
+ &nbsp; &nbsp; <a href="/IP-Location-Lookup/">Free IP Location Lookup</a><br />
+ &nbsp; &nbsp; <a href="/Test-Net-Regular-Expressions/">Test .Net Regular Expressions</a><br />
+ &nbsp; &nbsp; <a href="/CSS-Table-Div-Layouts/">CSS/Table/DIV Page Layouts</a><br />
+ &nbsp; &nbsp; <a href="/Custom-Programming.aspx">Custom Programming</a><br />
+ &nbsp; &nbsp; <a href="/Article-Sites-Master-List.aspx">Article Sites Master List</a><br />
+</span></div>
+<div class="tblDown"><span class="MenuCaption"><a href="/Tutorials-Articles-Guides/Default.aspx">Articles</a></span><br />
+<span class="bulletMain">
+ &nbsp; &nbsp; <a href="/ASP.NET-Tutorials/">ASP.NET Tutorials</a><br />
+  &nbsp; &nbsp; <a href="/ASP.NET-FAQ/">ASP.NET FAQ</a><br />
+  &nbsp; &nbsp; <a href="/T-SQL-FAQ/">T-SQL FAQ</a><br />
+  &nbsp; &nbsp; <a href="/HTML-CSS-FAQ/">HTML/CSS FAQ</a><br />
+ &nbsp; &nbsp; <a href="/Windows-Forms-Tutorials/">.NET Windows Forms</a><br />
+ &nbsp; &nbsp; <a href="/NET-Tutorials/">General .NET Framework</a><br />
+ &nbsp; &nbsp; <a href="/Freelance-Tutorials/">Freelance Tutorials</a><br />
+ &nbsp; &nbsp; <a href="/Tutorials-Articles-Guides/Default.aspx#WebDomains">Web Domains</a><br />
+ &nbsp; &nbsp; <a href="/Tutorials-Articles-Guides/Default.aspx#CreditCards">Accepting Credit Cards</a><br />
+ &nbsp; &nbsp; <a href="/Tutorials-Articles-Guides/Default.aspx#AntiSpam">Anti Spam</a><br />
+</span></div>
+<div class="tblDown"> &nbsp;<span class="MenuCaption"><a href="/Default.aspx">Home</a></span><br />
+<span class="bulletMain">
+ &nbsp; &nbsp; <a href="/Shop/">Shop</a><br />
+ &nbsp; &nbsp; <a href="/Advertise.aspx">Advertise</a><br />
+ &nbsp; &nbsp; <a href="/Write-For-Us.aspx">Write For Us</a><br />
+ &nbsp; &nbsp; <a href="/Affiliate.aspx">Affiliate</a><br />
+ &nbsp; &nbsp; <a href="/Newsletter/">Newsletter</a><br />
+ &nbsp; &nbsp; <a href="/Contact.aspx">Contact</a><br />
+</span><br />
+</div>
+
+
+</td>
+<td valign="top" id="content">
+
+<!-- google_ad_section_start -->
+<form action="http://www.google.com/cse" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-9599772624225044:290focm14mh" />
+    <input type="hidden" name="ie" value="ISO-8859-1" />
+    <input type="text" name="q" size="75" />
+    <input type="submit" name="sa" value="Search" />
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+<h1>Generating Excel Report in ASP.NET 2.0</h1>
+<div id="plusone-div"></div>
+<script type="text/javascript">
+
+    gapi.plusone.render
+(
+    'plusone-div',
+    {
+        "data-annotation": "inline",
+        "size": "standard",
+        "count": "true"
+    }
+);
+ 
+</script>
+
+
+
+
+
+<h2>Introduction</h2>
+<p>Excel is such a powerful tool that almost all companies make extensive use of it for analyzing data.  
+Moreover, the internet is not as it was 10 years ago.  Almost all pages that are out there on the internet are dynamic ones, 
+that is, interacts with a database in backend to produce results.  
+Sometimes, data that are displayed, if made available on in an Excel file, proper analysis of the data often helps in making more 
+accurate decisions by using Excel features.  In this tutorial, we will learn how to interact with Excel files, both reading and writing. 
+You can download
+<a href="http://www.beansoftware.com/ASP.NET-Tutorials/Examples/Excel-Report.zip">
+Excel Reports Example ASP.NET Project</a> associated with this tutorial.</p>
+<table border="0"><tr><td align="center" valign="middle">
+&nbsp;
+</td><td><script type="text/javascript"><!--
+google_ad_client = "pub-9599772624225044";
+/* 336x280, stvoreno 2011.08.09 */
+google_ad_slot = "5127883936";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></td></tr></table><h2>Excel - ASP.NET Scenarios</h2>
+<p>For the purpose of this tutorial, an Excel sheet had been prepared that holds record of students 
+and their respective marks in subjects.  Please note that these records are fictitious and had been input randomly.</p>
+<div align="center"><table  border="0" cellspacing="0" cellpadding="0" width="224" style="width: 167.65pt; border-collapse: collapse;" id="table1">
+	<tr style="height: 12.75pt">
+		<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="center" style="text-align:center"><b>
+		<span  >StudentId</span></b></td>
+		<td width="148" nowrap valign="bottom" style="width:110.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p><b>
+		<span  style="font-size:10.0pt;font-family:
+  Arial">StudentName</span></b></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10001</span></td>
+		<td width="148" nowrap valign="bottom" style="width:110.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p>
+		<span  >John 
+		Thomas</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10002</span></td>
+		<td width="148" nowrap valign="bottom" style="width:110.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p>
+		<span  >Terry Lane</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10003</span></td>
+		<td width="148" nowrap valign="bottom" style="width:110.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p>
+		<span  >Anne Marie</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10004</span></td>
+		<td width="148" nowrap valign="bottom" style="width:110.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p>
+		<span  >Tom Sawyer</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10005</span></td>
+		<td width="148" nowrap valign="bottom" style="width:110.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p>
+		<span  >Derek Ince</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10006</span></td>
+		<td width="148" nowrap valign="bottom" style="width:110.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p>
+		<span  >Emerson 
+		Boyce</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10007</span></td>
+		<td width="148" nowrap valign="bottom" style="width:110.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p>
+		<span  >Thommas 
+		Kolka</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10008</span></td>
+		<td width="148" nowrap valign="bottom" style="width:110.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p>
+		<span  >Edison 
+		Hall</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10009</span></td>
+		<td width="148" nowrap valign="bottom" style="width:110.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p>
+		<span  >Teddy 
+		Harewood</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10010</span></td>
+		<td width="148" nowrap valign="bottom" style="width:110.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p>
+		<span  >Williams 
+		Yorkshire</span></td>
+	</tr>
+</table>
+<p>Fig 1.  Table holding information for students</p>
+	</div>
+	<div align="center"><table  border="0" cellspacing="0" cellpadding="0" width="140" style="width: 104.95pt; border-collapse: collapse; " id="table2">
+		<tr style="height: 12.75pt">
+			<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p><b>
+			<span  style="font-size:10.0pt;font-family:
+  Arial">StudentId</span></b></td>
+			<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p><b>
+			<span  style="font-size:10.0pt;font-family:
+  Arial">Marks</span></b></td>
+		</tr>
+		<tr style="height: 12.75pt">
+			<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >10001</span></td>
+			<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >50</span></td>
+		</tr>
+		<tr style="height: 12.75pt">
+			<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >10002</span></td>
+			<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >60</span></td>
+		</tr>
+		<tr style="height: 12.75pt">
+			<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >10003</span></td>
+			<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >75</span></td>
+		</tr>
+		<tr style="height: 12.75pt">
+			<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >10004</span></td>
+			<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >80</span></td>
+		</tr>
+		<tr style="height: 12.75pt">
+			<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >10005</span></td>
+			<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >90</span></td>
+		</tr>
+		<tr style="height: 12.75pt">
+			<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >10006</span></td>
+			<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >95</span></td>
+		</tr>
+		<tr style="height: 12.75pt">
+			<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >10007</span></td>
+			<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >100</span></td>
+		</tr>
+		<tr style="height: 12.75pt">
+			<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >10008</span></td>
+			<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >20</span></td>
+		</tr>
+		<tr style="height: 12.75pt">
+			<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >10009</span></td>
+			<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >48</span></td>
+		</tr>
+		<tr style="height: 12.75pt">
+			<td width="76" nowrap valign="bottom" style="width:56.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >10010</span></td>
+			<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+			<p class="ArticleText" align="right" style="text-align:right">
+			<span  >66</span></td>
+		</tr>
+	</table>
+	<p>Fig 2.  Table holding student marks in Mathematics subject</p></div>
+	
+<div align="center"><table border="0" cellspacing="0" cellpadding="0" width="147" style="width: 110.5pt; border-collapse: collapse;" id="table3">
+	<tr style="height: 12.75pt">
+		<td width="83" nowrap valign="bottom" style="width:62.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="center" style="text-align:center"><b>
+		<span  >StudentId</span></b></td>
+		<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="center" style="text-align:center"><b>
+		<span  >Marks</span></b></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="83" nowrap valign="bottom" style="width:62.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10001</span></td>
+		<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >30</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="83" nowrap valign="bottom" style="width:62.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10002</span></td>
+		<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >25</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="83" nowrap valign="bottom" style="width:62.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10003</span></td>
+		<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >65</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="83" nowrap valign="bottom" style="width:62.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10004</span></td>
+		<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >78</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="83" nowrap valign="bottom" style="width:62.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10005</span></td>
+		<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >95</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="83" nowrap valign="bottom" style="width:62.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10006</span></td>
+		<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >64</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="83" nowrap valign="bottom" style="width:62.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10007</span></td>
+		<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >32</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="83" nowrap valign="bottom" style="width:62.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10008</span></td>
+		<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >88</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="83" nowrap valign="bottom" style="width:62.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10009</span></td>
+		<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >95</span></td>
+	</tr>
+	<tr style="height: 12.75pt">
+		<td width="83" nowrap valign="bottom" style="width:62.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >10010</span></td>
+		<td width="64" nowrap valign="bottom" style="width:48.0pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.75pt">
+		<p class="ArticleText" align="right" style="text-align:right">
+		<span  >99</span></td>
+	</tr>
+</table>
+<p>Fig 3. Table holding student marks in Geography subject</p>
+</div>
+<h2>Interacting with Excel</h2>
+<p>Fortunately, there are COM objects that are available to interact with the Excel file.  
+Also, we can make use of the OleDB class to treat the Excel file as a simple table.  
+In this way, we can fire SQL queries to the Excel file so that we can retrieve data from the sheets.  
+An analogy can be made to a database.  The Excel Workbook is considered as the Database while the Sheets are considered as tables.  
+Microsoft Excel 11.0 Object Library should be added as Reference to get the features for interacting with Excel.</p>
+<div align="center"><p><img src="http://www.beansoftware.com/ASP.NET-Tutorials/Images/Excel-Reporting-Add-Reference.jpg"><br />
+Fig 4. Adding Microsoft Excel 11.0 Object Library as Reference</p></div>
+<p>The Excel file is then added to the DataSource folder in ASAP.NET to be interacted with.  
+To connect to a certain database, a connection string is needed.  The same thing applies for Excel.  
+The following is a key added in the Web.Config file for future reference.</p>
+
+<p>
+<span  style=" color: blue">
+&lt;</span><span  style=" color: maroon">add</span><span  style=" color: blue">
+</span>
+<span  style=" color: red">
+name</span><span  style=" color: blue">=</span><span  >&quot;<span style="color:blue">ExcelConnection</span>&quot;<span style="color:blue">
+</span><span style="color:red">connectionString</span><span style="color:blue">=</span>&quot;<span style="color:blue">Provider=Microsoft.Jet.Oledb.4.0;Data 
+Source=|DataDirectory|\SchoolMgt.xls;Extended Properties=Excel 8.0</span>&quot;<span style="color:blue">/&gt;</span></span></p>
+<p>Note that our Excel file which contains the necessary data will be SchoolMgt.xls, 
+as written in the connection string.</p>
+<div align="center"><p><img src="http://www.beansoftware.com/ASP.NET-Tutorials/Images/Excel-Reporting-Example.jpg"><br />
+Fig 5. Excel file illustrating Excel Book containing data sheets with data</p></div>
+<h2>Reading data from Excel sheets</h2>
+<p><script type="text/javascript"><!--
+	e9 = new Object();
+    e9.size = "336x280,300x250";
+    e9.addBlockingCategories="Adult,Political,Flashing,Floating,Alcohol,Religious,Warning,Unicast,Suggestive,Audio,Full-page,Gambling,Tobacco,Pop-under,Violence,Pop-up";
+//--></script>
+<script type="text/javascript" src="http://tags.expo9.exponential.com/tags/BeanSoftware/ROS/tags.js"></script>Let us build an interface for getting data from the Excel file.</p>
+<div align="center"><p><img src="http://www.beansoftware.com/ASP.NET-Tutorials/Images/Excel-Reporting-Interface.jpg"><br />
+Fig 6. Interface to search records per table selected.</p></div>
+<p>It is important to import the following:</p>
+<p><span style="color: blue">
+Imports</span><span> 
+System.Data.OleDb</span>
+<br />
+<span style="color: blue">
+Imports</span> 
+System.Data</p>
+<p>The following code creates the connection and builds the query based on the selected table.</p>
+<p><span  style="color: blue">
+Protected</span><span  >
+<span style="color:blue">Sub</span> btnSearch_Click(<span style="color:blue">ByVal</span> 
+sender <span style="color:blue">As</span> <span style="color:blue">Object</span>,
+<span style="color:blue">ByVal</span> e <span style="color:blue">As</span> 
+System.EventArgs) <span style="color:blue">Handles</span> btnSearch.Click</span><br />
+
+<span  style="color: blue">
+Try</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Dim</span> strExcelConn
+<span style="color:blue">As</span> <span style="color:blue">String</span> = 
+System.Configuration.ConfigurationManager.ConnectionStrings.Item(<span style="color:maroon">&quot;ExcelConnection&quot;</span>).ToString()</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Dim</span> dbConn <span style="color:blue">
+As</span> <span style="color:blue">New</span> OleDbConnection(strExcelConn)</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Dim</span> strSQL <span style="color:blue">
+As</span> <span style="color:blue">String</span></span><br />
+
+<span  style="color: blue">
+&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strSQL = <span style="color:maroon">&quot;SELECT * FROM [&quot;</span> &amp; 
+cmbSheets.SelectedItem.ToString() &amp; <span style="color:maroon">&quot;$]&quot;</span></span><br />
+
+<span  style="color: maroon">
+&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dbConn.Open()</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Dim</span> cmd <span style="color:blue">As</span>
+<span style="color:blue">New</span> OleDbCommand(strSQL, dbConn)</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Dim</span> dsExcel <span style="color:blue">
+As</span> <span style="color:blue">New</span> DataSet</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Dim</span> daExcel <span style="color:blue">
+As</span> <span style="color:blue">New</span> OleDbDataAdapter(cmd)</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; daExcel.Fill(dsExcel)</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dgResults.DataSource = dsExcel</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dgResults.DataBind()</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">Catch</span> ex <span style="color:blue">As</span> 
+Exception</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Throw</span> ex</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">End</span> <span style="color:blue">Try</span></span><br />
+<span  style="color: blue">
+End</span><span  >
+<span style="color:blue">Sub</span></span></p>
+<p>Please note that the table name in the SELECT query should be in the format [TableName$], 
+which the square brackets and the dollar sign at the end.</p>
+<h2>Playing with SELECT statements</h2>
+<p>As you have guessed, the Excel file has turned out to be a normal database.  
+The transparency that the OleDB connection had made is exceptional.  
+Also, note that the first row is taken to contain field names for the columns.</p>
+<p>Now, let us get the marks of the students in Mathematics, Geography and Total, 
+sorted in Descending order.</p>
+<p><span  style="color: blue">
+Protected</span><span  >
+<span style="color:blue">Sub</span> btnGenerateReport_Click(<span style="color:blue">ByVal</span> 
+sender <span style="color:blue">As</span> <span style="color:blue">Object</span>,
+<span style="color:blue">ByVal</span> e <span style="color:blue">As</span> 
+System.EventArgs) <span style="color:blue">Handles</span> 
+btnGenerateReport.Click</span><br />
+
+<span  style="color: blue">
+Try</span><br />
+
+<span  style="color: blue">
+&nbsp;</span><br />
+
+<span  style="color: blue">
+Dim</span><span  > 
+strExcelConn <span style="color:blue">As</span> <span style="color:blue">String</span> 
+= System.Configuration.ConfigurationManager.ConnectionStrings.Item(<span style="color:maroon">&quot;ExcelConnection&quot;</span>).ToString()</span><br />
+
+<span  style="color: blue">
+Dim</span><span  > 
+dbConn <span style="color:blue">As</span> <span style="color:blue">New</span> 
+OleDbConnection(strExcelConn)</span><br />
+
+<span  style="color: blue">
+Dim</span><span  > 
+strSQL <span style="color:blue">As</span> <span style="color:blue">String</span></span><br />
+
+<span  style="color: blue">
+&nbsp;</span><br />
+
+<span  >strSQL =
+<span style="color:maroon">&quot;SELECT S.StudentId, S.StudentName, M.Marks, G.Marks, 
+(M.Marks+G.Marks) AS Total &quot;</span>&amp; _</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:maroon">&quot;FROM [Students$] S, 
+[Mathematics$] M, [Geography$] G &quot;</span>&amp; _</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:maroon">&quot;WHERE(S.StudentId = M.StudentId 
+And S.StudentId = G.StudentId) &quot;</span> &amp; _</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:maroon">&quot;ORDER BY (M.Marks+G.Marks) DESC&quot;</span></span><br />
+
+<span  >
+dbConn.Open()</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  style="color: blue">
+Dim</span><span  > 
+cmd <span style="color:blue">As</span> <span style="color:blue">New</span> 
+OleDbCommand(strSQL, dbConn)</span><br />
+
+<span  style="color: blue">
+Dim</span><span  > 
+dsExcel <span style="color:blue">As</span> <span style="color:blue">New</span> 
+DataSet</span><br />
+
+<span  style="color: blue">
+Dim</span><span  > 
+daExcel <span style="color:blue">As</span> <span style="color:blue">New</span> 
+OleDbDataAdapter(cmd)</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+daExcel.Fill(dsExcel)</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+dgReports.DataSource = dsExcel</span><br />
+
+<span  >
+dgReports.DataBind()</span><br />
+
+<span  style="color: blue">
+&nbsp;</span><br />
+
+<span  style="color: blue">
+Catch</span><span  > 
+ex <span style="color:blue">As</span> Exception</span><br />
+
+<span  style="color: blue">
+Throw</span><span  > 
+ex</span><br />
+
+<span  style="color: blue">
+End</span><span  >
+<span style="color:blue">Try</span></span><br />
+<span  style="color: blue">
+End</span><span  >
+<span style="color:blue">Sub</span></span></p>
+<div align="center"><p><img src="http://www.beansoftware.com/ASP.NET-Tutorials/Images/Excel-Reporting-Generate.jpg"><br />
+Fig 7. Report generating the students' marks and total, sorted in descending order.</p></div>
+<h2>Generating Excel Reports</h2>
+<p>Two ways for generating Excel report will be discussed in this tutorial.  
+The first one is using the &quot;Response&quot; class and the second one by manipulating the Excel objects that
+ &quot;Microsoft Excel 11.0&quot; Objects provide.</p>
+ <p>The following piece of code illustrates how this is done</p>
+ <p>
+<span  >&nbsp;&nbsp;&nbsp;
+<span style="color:blue">Protected</span> <span style="color:blue">Sub</span> 
+btnToExcelByResponse_Click(<span style="color:blue">ByVal</span> sender
+<span style="color:blue">As</span> <span style="color:blue">Object</span>,
+<span style="color:blue">ByVal</span> e <span style="color:blue">As</span> 
+System.EventArgs) <span style="color:blue">Handles</span> 
+btnToExcelByResponse.Click</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:green">'&nbsp;&nbsp; Variables declaration</span></span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">Dim</span> dsExport <span style="color:blue">As</span>
+<span style="color:blue">New</span> DataSet()</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">Dim</span> tw <span style="color:blue">As</span>
+<span style="color:blue">New</span> System.IO.StringWriter()</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">Dim</span> hw <span style="color:blue">As</span>
+<span style="color:blue">New</span> System.Web.UI.HtmlTextWriter(tw)</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">Dim</span> dgGrid <span style="color:blue">As</span>
+<span style="color:blue">New</span> DataGrid()</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+dgGrid.DataSource = getData()</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:green">'&nbsp;&nbsp; Report Header</span></span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+hw.WriteLine(<span style="color:maroon">&quot;&lt;b&gt;&lt;u&gt;&lt;font size='5'&gt; Student Marking 
+Report &lt;/font&gt;&lt;/u&gt;&lt;/b&gt;&quot;</span>)</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:green">'&nbsp;&nbsp; Get the HTML for the control.</span></span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+dgGrid.HeaderStyle.Font.Bold = <span style="color:blue">True</span></span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+dgGrid.DataBind()</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+dgGrid.RenderControl(hw)</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:green">'&nbsp;&nbsp; Write the HTML back to the browser.</span></span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Response.ContentType = <span style="color:maroon">&quot;application/vnd.ms-excel&quot;</span></span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">Me</span>.EnableViewState = <span style="color:blue">
+False</span></span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Response.Write(tw.ToString())</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Response.End()</span><br />
+<span  >&nbsp;&nbsp;&nbsp;
+<span style="color:blue">End</span> <span style="color:blue">Sub</span></span></p>
+<ul type=circle>
+<li><p>First, we create the dataset that will hold the records.  
+Then, a StringWriter object (tw) is also created along with an HtmlTextWriter (hw) 
+which takes as parameter the text writer object.  They are important for rendering purposes; 
+i.e. html tags can be applied like bold, italic etc. to the resulting Excel report.</p></li>
+<li><p>Also, a datagrid object which will store the dataset of records.</p></li>
+<li><p>Note that function getData() in the code snippet only 
+contains the codes in the previous example which returns a dataset of records.</p></li>
+<li><p>hw.WriteLine(<font color="#800000">&quot;&lt;b&gt;&lt;u&gt;&lt;font 
+size='5'&gt; Student Marking Report &lt;/font&gt;&lt;/u&gt;&lt;/b&gt;&quot;</font>) shows that you can also combine HTML codes with the output for proper display.
+  In our example, the font size will be 5, underlined and bold.</p></li>
+<li><p>dgGrid.RenderControl(hw) renders the HTML object with the data that the datagrid contains.  
+The result is normally formatted in a tabular format.</p></li>
+<li><p>Response.ContentType =  <font color="#800000">
+&quot;application/vnd.ms-excel&quot;</font> makes the Reponse object output to Excel.</p></li>
+<li><p>Response.Write(tw.ToString()) outputs the formatted object to Excel.</p></li>
+</ul>
+<div align="center"><p><img src="http://www.beansoftware.com/ASP.NET-Tutorials/Images/Excel-Reporting-Output.jpg"><br />
+Figure 8. Output result showing the report that is generated in Excel</p></div>
+<p>The second way for generating Excel reports from ASP.NET is to use the Microsoft Excel 11.0 Objects.
+  This method offers more fallibility in terms of manipulating the features that Excel provides and formatting the report.</p>
+<p>The following code snippet makes use of the various Excel objects that Excel provides to generate the report.</p>
+<p><span  style="color: blue">
+Imports</span><span  > 
+System.Reflection</span><br />
+
+<span  style="color: blue">
+Imports</span><span  > 
+Excel = Microsoft.Office.Interop.Excel</span><br />
+<span  style="font-size:10.0pt">&nbsp;</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;
+<span style="color:blue">Protected</span> <span style="color:blue">Sub</span> 
+btnToExcelByObjects_Click(<span style="color:
+blue">ByVal</span> sender <span style="color:blue">As</span>
+<span style="color:blue">Object</span>, <span style="color:blue">ByVal</span> e
+<span style="color:blue">As</span> System.EventArgs) <span style="color:blue">
+Handles</span> btnToExcelByObjects.Click</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">Try</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Dim</span> xlWorkBook
+<span style="color:blue">As</span> Excel.Workbook</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Dim</span> xlWorkSheet
+<span style="color:blue">As</span> Excel.Worksheet</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkBook = <span style="color:blue">New</span> 
+Excel.Application().Workbooks.Add(Missing.Value)</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkBook.Application.Visible = <span style="color:blue">True</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet = xlWorkBook.ActiveSheet</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:green">'&nbsp;&nbsp; Gets the dataset containing the data</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Dim</span> dsData <span style="color:blue">
+As</span> DataSet = getData()</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Dim</span> i <span style="color:blue">As</span>
+<span style="color:blue">Integer</span> = 2</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:green">'&nbsp;&nbsp; Outputting the fieldnames in pink bold 
+color</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Cells(1, 1) = <span style="color:maroon">&quot;Student ID&quot;</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Cells(1, 2) = <span style="color:maroon">&quot;Student Name&quot;</span></span><br />
+
+<span  >&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlWorkSheet.Cells(1, 3) = <span style="color:maroon">&quot;Mathematics&quot;</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Cells(1, 4) = <span style="color:maroon">&quot;Geography&quot;</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Cells(1, 5) = <span style="color:maroon">&quot;Total&quot;</span></span><br />
+
+<span  style="color: maroon">
+&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Range(<span style="color:maroon">&quot;$A1:$E1&quot;</span>).Font.ColorIndex 
+= Excel.Constants.xlColor1</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Range(<span style="color:maroon">&quot;$A1:$E1&quot;</span>).Font.Bold 
+= <span style="color:blue">True</span></span><br />
+
+<span  style="color: blue">
+&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:green">'&nbsp;&nbsp; Outputting the data</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">For</span> <span style="color:blue">Each</span> 
+dr <span style="color:blue">As</span> DataRow <span style="color:blue">In</span> 
+dsData.Tables(0).Rows</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Cells(i, 1) = dr(0)</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Cells(i, 2) = dr(1)</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Cells(i, 3) = dr(2)</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Cells(i, 4) = dr(3)</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:green">'&nbsp;&nbsp; Building the formula for 
+calculating the sum</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Cells(i, 5).Formula = <span style="color:maroon">
+&quot;=SUM($C{0}:$D{0})&quot;</span>.Replace(<span style="color:maroon">&quot;{0}&quot;</span>, 
+i.ToString())</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:green">'&nbsp;&nbsp; Going to the next row</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i = i + 1</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Next</span></span><br />
+
+<span  style="color: blue">
+&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:green">'&nbsp;&nbsp; Auto fit the columns</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xlWorkSheet.Columns.AutoFit()</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:green">'&nbsp;&nbsp; Generating the graph</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Dim</span> chart <span style="color:blue">
+As</span> Excel.Chart</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chart = xlWorkBook.Charts.Add()</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">With</span> chart</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ChartType = Excel.XlChartType.xlColumnClustered</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .SetSourceData(xlWorkSheet.Range(<span style="color:maroon">&quot;A1:E11&quot;</span>), 
+2)</span><br />
+
+<span  >&nbsp;</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .HasTitle = <span style="color:blue">True</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ChartTitle.Characters.Text = <span style="color:maroon">
+&quot;Students' marks&quot;</span></span><br />
+
+<span  style="color: maroon">
+&nbsp;</span><br />
+
+<span  >&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.Axes(1, Excel.XlAxisGroup.xlPrimary).HasTitle =
+<span style="color:blue">True</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .Axes(1, Excel.XlAxisGroup.xlPrimary).AxisTitle.Characters.Text 
+= <span style="color:maroon">&quot;Students&quot;</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .Axes(2, Excel.XlAxisGroup.xlPrimary).HasTitle =
+<span style="color:blue">True</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .Axes(2, Excel.XlAxisGroup.xlPrimary).AxisTitle.Characters.Text 
+= <span style="color:maroon">&quot;Marks&quot;</span></span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">End</span> <span style="color:blue">With</span></span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">Catch</span> ex <span style="color:blue">As</span> 
+Exception</span><br />
+
+<span  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:blue">Throw</span> ex</span><br />
+
+<span  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:blue">End</span> <span style="color:blue">Try</span></span><br />
+<span  >&nbsp;&nbsp;&nbsp;
+<span style="color:blue">End</span> <span style="color:blue">Sub</span></span></p>
+<p>An Excel workbook is first created.  Then the active sheet is accessed by xlWorkSheet = 
+xlWorkBook.ActiveSheet.  After that, we get the data into the dataset, ready to be processed.  
+Using the Font property, the title is displayed in Pink bold colour.  
+Note how the Formula that Excel provides is properly used to calculate the SUM of the marks for 
+each student xlWorkSheet.Cells(i, 5).Formula = &quot;=SUM($C{0}:$D{0})&quot;.Replace(&quot;{0}&quot;, i.ToString()). </p>
+<div align="center"><p><img src="http://www.beansoftware.com/ASP.NET-Tutorials/Images/Excel-Reporting-Output-Marked.jpg"><br />
+Figure 9. Excel Report having output the list of students and their respective marks.</p></div>
+<p>A chart is also generated using the objects.  
+The x-axis consists of the names and id of each student.  The y-axis, the marks for the different students.  
+The chart is always handy for analysis of data.</p>
+<div align="center"><p><img src="http://www.beansoftware.com/ASP.NET-Tutorials/Images/Excel-Reporting-Chart.jpg"><br />
+Figure 10. Chart that is generated using Microsoft Excel 11.0 Objects</p></div>
+<h2>Summary</h2>
+<p>In this tutorial, you learned how to read data from Excel, 
+generate report using the Response objects and to play with the Microsoft Excel 11.0 objects provided.  
+Indeed, it is impossible to cover all features in this tutorial but many important techniques were covered 
+to help you down the line.  It is up to you to be creative and adapt the techniques to your scenarios.</p>
+<h2>Going professional with NativeExcel for .NET</h2>
+<p>Excel is powerful tool, but in real world development you rarely have Microsoft Office installed on your web server. There is no Excel on shared hosting and obtaining Office license for dedicated server is possible, but also pretty expensive. Fortunately, there is pure .NET component named <a rel="nofollow" target="_top" href="http://www.beansoftware.com/Visit/NativeExcel/">Native Excel for .NET</a> that creates or modifies Excel documents on the fly. For just $120 for single license you can use it on <b>unlimited</b> number of web sites and servers (source code available too). It is easier to distribute application since you work with simple assembly written in C#, instead of COM Excel object. Best of all, you don't need to learn anything new because objects and properties are identical to Excel's, so if you understood this tutorial you are already expert for <a rel="nofollow" target="_top" href="http://www.beansoftware.com/Visit/NativeExcel/">NativeExcel</a> too :).</p>
+
+
+<table border="0"><tr><td>
+<script type="text/javascript"><!--
+google_ad_client = "pub-9599772624225044";
+/* 250x250 Bottom 09.09.30 */
+google_ad_slot = "9166556124";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></td></tr></table>   
+<!-- google_ad_section_end -->          
+<hr size="1" />
+<p style="color:blue;"><b>Tutorial toolbar:</b> &nbsp;<a href="mailto:?subject=Interesting tutorial%3A Enter Key in ASP.NET - Complete Research&amp;body=Hi%2C%20I%20found%20an%20interesting%20ASP.NET%20tutorial%3A%20Enter%20Key%20in%20ASP.NET%20-%20Complete%20Research%20on%20http%3A%2F%2Fwww.beansoftware.com%2FASP.NET-Tutorials%2FAccept-Enter-Key.aspx"><b>Tell A Friend</b></a> &nbsp;|&nbsp;&nbsp;<a href="javascript:addbookmark('Enter Key in ASP.NET - Complete Research', 'http://www.beansoftware.com/ASP.NET-Tutorials/Accept-Enter-Key.aspx');"><b>Add to favorites</b></a><a href="mailto:?subject=Interesting tutorial%3A Enter Key in ASP.NET - Complete Research&amp;body=Hi%2C%20I%20found%20an%20interesting%20ASP.NET%20tutorial%3A%20Enter%20Key%20in%20ASP.NET%20-%20Complete%20Research%20on%20http%3A%2F%2Fwww.beansoftware.com%2FASP.NET-Tutorials%2FAccept-Enter-Key.aspx"></a>&nbsp; |&nbsp;&nbsp;<a href="mailto:info@beansoftware.com?Subject=Tutorial%20Feedback%3A Enter Key in ASP.NET - Complete Research"><b>Feedback</b></a>&nbsp; | &nbsp;&nbsp;</p>
+<hr size="1" />
+
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'beansoftware'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-9599772624225044";
+/* 468x15 Link 2009.09.30 */
+google_ad_slot = "3167399240";
+google_ad_width = 468;
+google_ad_height = 15;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td>
+<td valign="top" id="rightCol">
+<iframe frameborder="0" marginheight="0" marginwidth="0" scrolling="no" width="160" height="600" src="http://www.beansoftware.com/ads/freelance-160x600.aspx"></iframe>
+<br />
+
+<p><strong>Related articles:</strong><br /><br />
+1. <a href="http://www.beansoftware.com/ASP.NET-Tutorials/Poll-Application.aspx">Build a Poll System in ASP.NET</a><br />2. <a href="http://www.beansoftware.com/NET-Tutorials/Unmanaged-Code-PInvoke.aspx">Interoperating with Unmanaged Code - PInvoke</a><br />3. <a href="http://www.beansoftware.com/NET-Tutorials/COM-Interop.aspx">Interoperating With COM from .NET applications (COM Interop)</a><br />4. <a href="http://www.beansoftware.com/ASP.NET-Tutorials/Month-Calendar-Control.aspx">A Simple Month Calendar Control for ASP.NET</a><br />5. <a href="http://www.beansoftware.com/ASP.NET-Tutorials/Encrypting-Connection-String.aspx">Encrypting Connection Strings in web.config file</a><br />6. <a href="http://www.beansoftware.com/ASP.NET-Tutorials/Nested-Master-Pages.aspx">Nested Master Pages</a><br />7. <a href="http://www.beansoftware.com/ASP.NET-FAQ/WebSite-For-Mobile-Device.aspx">How To Create ASP.NET Website for Mobile Devices?</a><br />
+</p>   
+
+</td></tr></table>
+<div id="footer">
+<div id="copydiv">Copyright &copy;  2002 - 2014. Bean Software. All rights reserved.<br />
+</div>
+
+</div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-222049-1";
+urchinTracker();
+</script>
+
+        
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+package android.support.v4.accessibilityservice;
+
+import android.accessibilityservice.AccessibilityServiceInfo;
+import android.content.pm.ResolveInfo;
+import android.os.Build.VERSION;
+
+public class AccessibilityServiceInfoCompat
+{
+  public static final int FEEDBACK_ALL_MASK = 255;
+  private static final AccessibilityServiceInfoVersionImpl IMPL;
+
+  static
+  {
+    if (Build.VERSION.SDK_INT >= 14)
+      IMPL = new AccessibilityServiceInfoIcsImpl();
+    while (true)
+    {
+      return;
+      IMPL = new AccessibilityServiceInfoStubImpl();
+    }
+  }
+
+  public static String feedbackTypeToString(int paramInt)
+  {
+    int i = 1;
+    StringBuilder localStringBuilder = new StringBuilder();
+    localStringBuilder.append("[");
+    while (paramInt > 0)
+    {
+      int j = Integer.numberOfTrailingZeros(paramInt);
+      int k = i << j;
+      int m = k ^ 0xFFFFFFFF;
+      paramInt &= m;
+      if (localStringBuilder.length() > i)
+        localStringBuilder.append(", ");
+      switch (k)
+      {
+      default:
+        break;
+      case 1:
+        localStringBuilder.append("FEEDBACK_SPOKEN");
+        break;
+      case 4:
+        localStringBuilder.append("FEEDBACK_AUDIBLE");
+        break;
+      case 2:
+        localStringBuilder.append("FEEDBACK_HAPTIC");
+        break;
+      case 16:
+        localStringBuilder.append("FEEDBACK_GENERIC");
+        break;
+      case 8:
+        localStringBuilder.append("FEEDBACK_VISUAL");
+      }
+    }
+    localStringBuilder.append("]");
+    return localStringBuilder.toString();
+  }
+
+  public static String flagToString(int paramInt)
+  {
+    int i;
+    switch (paramInt)
+    {
+    default:
+      i = 0;
+    case 1:
+    }
+    while (true)
+    {
+      return i;
+      String str = "DEFAULT";
+    }
+  }
+
+  public static boolean getCanRetrieveWindowContent(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+  {
+    return IMPL.getCanRetrieveWindowContent(paramAccessibilityServiceInfo);
+  }
+
+  public static String getDescription(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+  {
+    return IMPL.getDescription(paramAccessibilityServiceInfo);
+  }
+
+  public static String getId(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+  {
+    return IMPL.getId(paramAccessibilityServiceInfo);
+  }
+
+  public static ResolveInfo getResolveInfo(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+  {
+    return IMPL.getResolveInfo(paramAccessibilityServiceInfo);
+  }
+
+  public static String getSettingsActivityName(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+  {
+    return IMPL.getSettingsActivityName(paramAccessibilityServiceInfo);
+  }
+
+  class AccessibilityServiceInfoIcsImpl extends AccessibilityServiceInfoCompat.AccessibilityServiceInfoStubImpl
+  {
+    public boolean getCanRetrieveWindowContent(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+    {
+      return AccessibilityServiceInfoCompatIcs.getCanRetrieveWindowContent(paramAccessibilityServiceInfo);
+    }
+
+    public String getDescription(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+    {
+      return AccessibilityServiceInfoCompatIcs.getDescription(paramAccessibilityServiceInfo);
+    }
+
+    public String getId(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+    {
+      return AccessibilityServiceInfoCompatIcs.getId(paramAccessibilityServiceInfo);
+    }
+
+    public ResolveInfo getResolveInfo(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+    {
+      return AccessibilityServiceInfoCompatIcs.getResolveInfo(paramAccessibilityServiceInfo);
+    }
+
+    public String getSettingsActivityName(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+    {
+      return AccessibilityServiceInfoCompatIcs.getSettingsActivityName(paramAccessibilityServiceInfo);
+    }
+  }
+
+  class AccessibilityServiceInfoStubImpl
+    implements AccessibilityServiceInfoCompat.AccessibilityServiceInfoVersionImpl
+  {
+    public boolean getCanRetrieveWindowContent(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+    {
+      return null;
+    }
+
+    public String getDescription(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+    {
+      return null;
+    }
+
+    public String getId(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+    {
+      return null;
+    }
+
+    public ResolveInfo getResolveInfo(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+    {
+      return null;
+    }
+
+    public String getSettingsActivityName(AccessibilityServiceInfo paramAccessibilityServiceInfo)
+    {
+      return null;
+    }
+  }
+
+  abstract interface AccessibilityServiceInfoVersionImpl
+  {
+    public abstract boolean getCanRetrieveWindowContent(AccessibilityServiceInfo paramAccessibilityServiceInfo);
+
+    public abstract String getDescription(AccessibilityServiceInfo paramAccessibilityServiceInfo);
+
+    public abstract String getId(AccessibilityServiceInfo paramAccessibilityServiceInfo);
+
+    public abstract ResolveInfo getResolveInfo(AccessibilityServiceInfo paramAccessibilityServiceInfo);
+
+    public abstract String getSettingsActivityName(AccessibilityServiceInfo paramAccessibilityServiceInfo);
+  }
+}

@@ -1,0 +1,465 @@
+分享到一键分享QQ空间新浪微博百度云收藏人人网腾讯微博百度相册开心网腾讯朋友百度贴吧豆瓣网搜狐微博百度新首页QQ好友和讯微博更多...百度分享
+
+   忘记密码   免费注册  查看新帖 | 论坛精华区  
+ 
+   
+. 
+  平台： 论坛 博客 问答 文库 沙龙 自测 下载 订阅 搜索 频道： 自动化运维 虚拟化 服务器 储存备份 C/C++ PHP MySQL 嵌入式 Linux系统             
+ 
+·cn域名35元，时代云主机52元 ·ChinaUnix社区问答平台 ·IBM POWER知识自测 赢三重大奖 ·分布式文件系统架构沙龙演讲PPT下载 
+? 论坛 ? IT运维 ? 数据安全 ? 几天以来的防御syn flood攻击心得 .123下一页最近访问板块  版块跳转 新手园地      硬件问题Linux系统管理Linux网络问题Linux环境编程Linux桌面系统国产LinuxBSD      BSD文档中心AIX      新手入门      AIX文档中心      资源下载      Power高级应用      IBM存储AS400Solaris      Solaris文档中心HP-UX      HP文档中心SCO UNIX      SCO文档中心互操作专区IRIXTru64 UNIXMac OS X门户网站运维集群和高可用服务器应用监控和防护虚拟化技术架构设计行业应用和管理服务器及硬件技术      服务器资源下载云计算      云计算文档中心      云计算业界      云计算资源下载存储备份      存储文档中心      存储业界      存储资源下载      Symantec技术交流区安全技术网络技术      网络技术文档中心C/C++      GUI编程      Functional编程内核源码      内核问题移动开发      移动开发技术资料ShellPerlJava      Java文档中心PHP      php文档中心Python      Python文档中心RubyCPU与编译器嵌入式开发驱动开发Web开发VoIP开发技术MySQL      MySQL文档中心SybaseOraclePostgreSQLDB2Informix数据仓库与数据挖掘NoSQL技术IT业界新闻与评论IT职业生涯      猎头招聘IT图书与评论      CU技术图书大系      Linux书友会二手交易下载共享Linux文档专区IT培训与认证      培训交流      认证培训清茶斋投资理财运动地带快乐数码摄影      摄影器材      摄影比赛专区IT爱车族旅游天下站务交流版主会议室博客SNS站务交流区CU活动专区      Power活动专区      拍卖交流区频道交流区  .
+查看: 7662 | 回复: 23     几天以来的防御syn flood攻击心得 [复制链接] 00 
+wddllyy wddllyy 当前离线 空间积分0 信誉积分100 UID763555阅读权限10积分25帖子21精华2可用积分25 专家积分0 在线时间1 小时注册时间2004-09-17最后登录2011-05-20. 
+
+白手起家
+
+
+白手起家, 积分 25, 距离下一级还需 175 积分
+帖子21主题3精华2可用积分25 专家积分0 在线时间1 小时注册时间2004-09-17最后登录2011-05-20.问答好友博客消息.论坛徽章:0. 电梯直达   1楼 [收藏(0)] [报告]  发表于 2004-09-17 01:55:34 |只看该作者 |倒序浏览 
+起文:
+     小弟这几天忙着防御syn flood攻击,有稍许收获,拿出来和大家分享~~
+环境介绍:
+    小弟水平有限,只能趁着暑假有空帮一个小公司做了个linux服务器
+,其实很简单了,安装系统,apache+php+mysql  ftp 日志流量分析 在
+做个论坛全都配置好了,然后开好ssh以便以后管理,在配置好防火墙.然
+后就和mm坐火车回家玩,一个多月多没什么问题,没想到回到学校后
+呆了几天,那边的人打电话过来说网页打不开了,我ssh进去一看,
+apache 日志什么的都正常,随手netstat看一下,唉~~ 有一个ip
+开了几百个和服务器80口的连接,当时还不知到是syn flood攻击,
+觉着这个有猫腻,先
+
+netstat >; con_list.txt保存现场 然后
+iptables -A INPUT -s ***.***.***.*** -j REJECT 了.因为原来都是
+
+在学校里面凭兴趣搞开发,虽然做过一个每日点击200万,日流量40G的代
+理系统,但还没有遇到被人攻击的情况,凭感觉是被人DoS进攻了,开始上
+网查资料饿补.
+
+第一天:
+
+
+  根据网上的文章和我报存的现场文件判断,被DoS攻击了,由于那家小
+公司用的是p4 1.7 256m的pc机做的服务器,所以先前我设置的apache最
+大链接量不大,这样才没有被搞得当机,只是apache拒绝服务了而已.
+  然后决定使用apache的一个mod_limitipconn模块来限制每个ip的连
+接数,装好模块,在配置文件里写好
+
+ExtendedStatus On
+
+< IfModule mod_limitipconn.c >;
+  　　  < Location / >;   
+        　　MaxConnPerIP 10  
+　　        NoIPLimit image/*
+    < /Location >;
+
+
+之后我以为好了.然后就去睡觉.
+
+第二天:
+   被打电话告知又不能访问了,ssh过去一看,症状和昨天一样,看来那
+个模块没什么用,找啊找 ,非常不幸的是又被我找到一个apache的防DoS
+攻击的功能模块(为什么说不幸过会你就知道了),然后一顿折腾
+
+# tar -zxvf mod_dosevasive.1.9.tar.gz 
+# cd mod_dosevasive 
+# /usr/local/apache/bin/apxs -iac mod_dosevasive20.c 
+# vim /usr/local/apache/conf/httpd.conf 
+
+<IfModule mod_dosevasive.c>; 
+DOSHashTableSize 3097 
+DOSPageCount 3 
+DOSSiteCount 50 
+DOSPageInterval 1 
+DOSSiteInterval 1 
+DOSBlockingPeriod 30 
+</IfModule>; 
+
+
+感觉这个模块功能还比较强大,而且比较对题,人家就是防DoS的模块,觉
+
+着这会应该可以了.然后安安心心的睡了
+
+第三天:
+
+  昨天用的那个模块依旧失败,决心好好搞搞,找啊找,找到一片英文的
+Hardening the TCP/IP stack to SYN attacks . 写的真不错,马上使
+我明白了syn flood这种利用TCP/IP协议本身的缺陷来攻击的方法.(想
+起了我们上computer network课的时候,老师对TCP/IP协议本身的责
+骂......)
+
+我就按照经典的传统的防syn flood的方法去做
+
+echo "1" >; /proc/sys/net/ipv4/tcp_syncookies
+其实就是(/sbin/sysctl -w net.ipv4.tcp_syn_cookies=1)
+
+/sbin/sysctl -w net.ipv4.tcp_max_syn_backlog=2048
+
+iptables -N syn-flood
+iptables -A INPUT -p tcp --syn -j syn-flood
+/sbin/iptables -I syn-flood -p tcp -m limit --limit 3/s --
+
+limit-burst 6 -j RETURN
+/sbin/iptables -A syn-flood -j REJECT
+把这个syn-flood链片段放在iptables INPUT链的最前面
+
+然后就忐忑不安的去睡觉,
+因为早就看到了很多文章说这种方法不是很奏效......
+
+第四天:
+  不幸的事再次发生,看来不得不另辟蹊径了.这个时候忽然想起原来看
+到的一篇文章用iptables来限制每个ip的链接数,
+即使用iptables中patch-o-matic中iplimit补丁来实现
+(现在改名为connlimit了),感觉这个方法在对付DoS
+和小规模DDoS时应该可以应付,可是这个方法要重新编译内核.在那个小
+应用服务器上........唉 ,不到万不得已,还是现别用这个方法了,(不
+过在这个文章的最后看到一句话,This method is more effective 
+than apache's mod,看得我哭笑不得)
+
+  仔细想一想,他的原理就是监视并限制每个ip的连接数,这个用最简单
+的教本编程也能很轻松的做到,为什么不试一试呢,可惜小弟的shell功
+底不够深,一时间又懒得去补,呵呵,还是直接用c++吧,其实c足够了,我
+只是比较喜欢用stl而已.
+
+  主要流程是获得当前处于ESTABLISHED和SYN_RECV状态的连接,然后获
+得处于这种链接的ip,统计每个ip占用的连接数,当这个数目大于特定值
+的时候(在这个web浏览为主的小网站上我设置的是40).就用system()函
+数调用/sbin/iptables -A INPUT -s **.**.**.** -j REJECT来封掉这
+个ip.
+
+最后g++ 编译连接就得到可执行文件了,我们先取名banip
+
+  呵呵  这个做法是不是很简单啊,甚至可以说简陋,随便用shell perl
+编程都能实现的(但是这个方法可以说符合软件开发中kiss的要求,keep 
+it small stupid).然后crontab -e 写一下日程表.设置每隔多少时间
+运行一下banip(我设置的是3分钟.嘿嘿~~) 如果当前连接中某个ip处于
+ESTABLISHED和SYN_RECV状态的链接数大于程序中设定的值,就会自动把
+这个ip封掉,
+
+//////////////////////////////////////////////////////////////////////////////
+//  Limit_con.cpp
+//  Copyright 2004 liu yang (x-yao@zju.edu.cn)
+//  Distributed under the GPL
+//
+//  2004.9.17 
+//  Limit the connection number of each IP in linux system
+//  If the number larger than MaxConnect ,the ip will be block by iptables
+//  Can use it to defend simple DoS attack(eg: syn flood),
+//
+//  install:
+//                 gcc  Limit_con.cpp -o Limit_con ; cp Limit_con /bin/Limit_con
+//  
+//  usage:  (exec Limit_con every 3 minutes)
+//          crontab -e
+//          */3 * * * * /bin/Limit_con   
+//
+////////////////////////////////////////////////////////////////////////////
+
+#include <stdio.h>;
+#include <vector>;
+#include <string>;
+#include <iostream>;
+#include <fstream>;
+#include <algorithm>;
+using namespace std;
+const string BanListFile = "/tmp/ban_list"; // the file record the block ip
+
+const string DataCacheFile = "/tmp/data.cache";//the file use for cache
+
+const int MaxConnect = 31 ;//the max connection number that you allow for each ip
+
+int main(int argc, char *argv[ ])
+{
+   string a="/bin/netstat | grep -e \"ESTABLISHED\\|FIN_WAIT1\\|SYN_RECV\" | awk '{print $5}' >; "+DataCacheFile;
+   vector < string >; IpList;
+   vector < int >; IpConNum;
+   string Ipatables_rule="/sbin/iptables -I INPUT -s ";
+   string BanIp;
+   string Ipatables_rule2=" -j REJECT";
+   vector < string >; BlackList;
+   string BlackIpString;
+   vector < string >;::iterator pos;        
+   BlackList.resize(0);
+
+//read the file to get which ip  has been blocked
+   fstream BlackIp(BanListFile.c_str() , ios::in);
+   if(BlackIp.is_open())    
+   {
+        while(1)
+                {
+                  BlackIp  >;>; BlackIpString ;
+                    if(!BlackIp.eof())
+                        {
+                            BlackList.push_back(BlackIpString) ;
+                        //  cout<< BlackIpString<<"  "<<BlackList.size()<<"  "<<endl;
+                        }
+                   else break;
+                        }
+
+   }
+//exec the shell command to get current connection status, 
+//and send the infomation to a cache file
+   system(a.c_str());
+
+//read the file to get current connection status
+   fstream CurrentCon(DataCacheFile.c_str(),ios::in);
+
+        if(!CurrentCon.eof())
+        do
+        {
+        string SingleIp;
+        CurrentCon >;>; SingleIp;
+        int i=SingleIp.find(":";
+        if(i==-1)break;
+        SingleIp.resize(i);
+
+                
+                pos=find(IpList.begin() , IpList.end() , SingleIp);
+                if(pos != IpList.end())//if the ip in the Iplist 
+                {
+                        IpConNum[pos-IpList.begin()]++;//just add the ip's connection number
+                }        
+                else{//else the ip is first time list in the cache file
+                        pos=find(BlackList.begin() , BlackList.end() , SingleIp);
+        
+                        //if the ip was not blocked, 
+                        //sometimes you blocked the ip 
+                        //but it's connection will remain a little time 
+                        //So we check this .
+                        if(pos == BlackList.end())
+                               {
+                              IpList.push_back(SingleIp);//add the ip to Iplist
+                              IpConNum.push_back(1);
+                               }
+
+                }
+
+
+
+
+        }
+        while(!CurrentCon.eof());
+//      cout<<"--------------"<<endl;
+//      for(int i=0; i<IpList.size() ; i++)
+//        {
+//            cout << IpList <<":"<<IpConNum<<endl;
+//
+//        }
+
+        for(int i=0; i<IpList.size() ; i++)
+        {   
+                //if the ip's connection number is larger than MaxConnect
+                if( IpConNum >; MaxConnect )
+                {
+                        BanIp=IpList;
+                        
+                        if(BanIp!=""
+                                {
+                                Ipatables_rule=Ipatables_rule+BanIp+Ipatables_rule2;
+                            cout << "banip "<< Ipatables_rule <<endl;
+                            system(Ipatables_rule.c_str());//use iptables to block the ip
+                                  string baninfo = "echo ";
+                            baninfo = baninfo+BanIp.c_str()+" >;>;"+BanListFile;
+                                system(baninfo.c_str());//add the ip to the BanListFile
+                            Ipatables_rule = "/sbin/iptables -I INPUT -s ";
+                                }
+                }
+
+        }
+
+}
+
+
+  程序编号,crontab设置好,我用同学的机子模拟syn flood攻击了一下
+,呵呵,立刻被封.安安心心睡觉咯 ,哎呀,已经是凌晨4点了.
+
+第五天
+服务器正常运行一天,记录有3个ip来攻击(不算我同学的那个ip).
+
+第六天
+服务器正常运行一天,记录的有2个ip被封.
+
+
+总结,
+   1 google的确是好东西,太有用了.
+   2 不要迷信什么商业东西,有机会一定要自己试一下,要对自己有信
+心.
+   3 查看日志,保存现场都很重要.
+  4 一个办法不行换另一个,坚持到底就是胜利.
+   5 记录的ip中,攻击者大部分都是ADSL的,一个区段的ip被封了多次,
+大家一定要保护好自己的电脑,当肉鸡多可怜啊.
+    
+ 
+本版精华热门专题文库|博客linux系统的安装(redhat7.2)+jsp环境+mysql+安全设置SElinux实例，主要提供了解决问题的思路和排错方法千兆硬件防火墙该如何选购!!温故中国黑客史（首发于《黑客X档案》）LINUX网络安全文献国内网络安全风险评估市场与技术操作（转）基于Snort的入侵检测系统（翻译）短篇小说《我是一名黑客》讨论公司屏蔽IM软件的一点心得TCP/IP详解（一）Outlook 2003中如何给所有联系人发邮件安装arm-linux-gcc交叉编译器chcon的错误,帮忙看一下.FreeBSD 常用命令以及VI 命令androidcacti不出图linux配置DNS服务器详解求助：linux磁盘空间不足Ubuntu7.10 根分区扩容Android的开机流程
+安全密码管理器和智能手机上的“军用级加密” _dmitry sklyarov.pdf您的所有来电仍然属于我们_daniel mende & enno rey.pdf数据库安全审计——数据库加密大幅提升安全系数.pdf天清Web应用安全网关（天清WAG）.pdf使用kautilya 的更多乐趣_nikhil mittal.pdfSVM总结及SMO简单实现HDFS Federation
+chinaunix博客什么时候可以设置背景啊，感觉 ...  |  一个访问量较大网站的服务器。配置那些文件 ...  |  收音机驱动与v4l2架构的关系，如何交互以及 ...  |  如何将linux驱动改为裸机驱动(rtl8188cus转 ...  |   
+  
+  
+
+天下第二 天下第二 当前离线 空间积分0 信誉积分100 UID1738075阅读权限20积分876帖子891精华2可用积分876 专家积分11 在线时间1 小时注册时间2003-12-22最后登录2009-05-04. 
+
+稍有积蓄
+
+
+
+稍有积蓄, 积分 876, 距离下一级还需 -376 积分
+帖子891主题56精华2可用积分876 专家积分11 在线时间1 小时注册时间2003-12-22最后登录2009-05-04.问答好友博客消息.论坛徽章:0. 2楼 [报告]  发表于 2004-09-17 08:35:30 |只看该作者 几天以来的防御syn flood攻击心得
+非常不错！怎么没人支持？我先来支持一下！！ 
+ 
+PCIE SSD对数据库架构的影响巨大| Web性能优化：说说您的独门绝技 | 软件硬件谁在引领IT技术革命 | 《大数据时代的IT架构设计》有奖讨论 
+  
+  
+
+A.com A.com 当前离线 空间积分0 信誉积分809 UID20058424阅读权限50积分4660帖子5541精华0可用积分4661 专家积分0 在线时间2326 小时注册时间2003-05-21最后登录2014-04-27. 
+
+小富即安
+
+
+
+小富即安, 积分 4660, 距离下一级还需 340 积分
+帖子5541主题71精华0可用积分4661 专家积分0 在线时间2326 小时注册时间2003-05-21最后登录2014-04-27.问答好友博客消息.论坛徽章:1. 3楼 [报告]  发表于 2004-09-17 09:56:21 |只看该作者 几天以来的防御syn flood攻击心得
+也许微不足道，但确实解决了问题。这才是真正的能力的体现！不错啊，帮你顶。 
+ 
+真话令一切反动派以及依附于反动势力的狗奴才们恐惧PCIE SSD对数据库架构的影响巨大| Web性能优化：说说您的独门绝技 | 软件硬件谁在引领IT技术革命 | 《大数据时代的IT架构设计》有奖讨论 
+  
+  
+
+wddllyy wddllyy 当前离线 空间积分0 信誉积分100 UID763555阅读权限10积分25帖子21精华2可用积分25 专家积分0 在线时间1 小时注册时间2004-09-17最后登录2011-05-20. 
+
+白手起家
+
+
+白手起家, 积分 25, 距离下一级还需 175 积分
+帖子21主题3精华2可用积分25 专家积分0 在线时间1 小时注册时间2004-09-17最后登录2011-05-20.问答好友博客消息.论坛徽章:0. 4楼 [报告]  发表于 2004-09-17 10:10:00 |只看该作者 几天以来的防御syn flood攻击心得
+呵呵 ,谢谢,希望对大家有用 
+ 
+PCIE SSD对数据库架构的影响巨大| Web性能优化：说说您的独门绝技 | 软件硬件谁在引领IT技术革命 | 《大数据时代的IT架构设计》有奖讨论 
+  
+  
+
+撒旦的使者 撒旦的使者 当前离线 空间积分0 信誉积分300 UID11185818阅读权限50积分3556帖子1192精华0可用积分3558 专家积分10 在线时间2739 小时注册时间2004-07-01最后登录2014-04-30. 
+
+小富即安
+
+
+
+小富即安, 积分 3556, 距离下一级还需 1444 积分
+帖子1192主题199精华0可用积分3558 专家积分10 在线时间2739 小时注册时间2004-07-01最后登录2014-04-30.问答好友博客消息.论坛徽章:0. 5楼 [报告]  发表于 2004-09-17 11:42:20 |只看该作者 几天以来的防御syn flood攻击心得
+哥们 如果ip是假的呢 比喻说ip 是0.23.34.34 2.3.5.123.4 之类的？ 
+ 
+老子一定要把dp换成NBU。PCIE SSD对数据库架构的影响巨大| Web性能优化：说说您的独门绝技 | 软件硬件谁在引领IT技术革命 | 《大数据时代的IT架构设计》有奖讨论 
+  
+  
+
+wddllyy wddllyy 当前离线 空间积分0 信誉积分100 UID763555阅读权限10积分25帖子21精华2可用积分25 专家积分0 在线时间1 小时注册时间2004-09-17最后登录2011-05-20. 
+
+白手起家
+
+
+白手起家, 积分 25, 距离下一级还需 175 积分
+帖子21主题3精华2可用积分25 专家积分0 在线时间1 小时注册时间2004-09-17最后登录2011-05-20.问答好友博客消息.论坛徽章:0. 6楼 [报告]  发表于 2004-09-17 12:09:27 |只看该作者 几天以来的防御syn flood攻击心得
+[quote]原帖由 "撒旦的使者"]哥们 如果ip是假的呢 比喻说ip 是0.23.34.34 2.3.5.123.4 之类的？[/quote 发表：
+
+
+得确,syn flood可以伪造源IP地址,给追查造成很大困难，要查找必须所有骨干网络运营商，一级一级路由器的向上查找。除非攻击者和被攻击的系统之间所有的路由器的管理者都配合查找，否则很难追查。
+
+
+如果对方随机改变伪造IP源地址。这种行为判断封ip得办法得确会失效
+
+据我所知，除了简单的提高抗挨打能力外，还有一种退让策略
+
+
+退让策略是基于SYN Flood攻击代码的一个缺陷，我们重新来分析一下SYN Flood攻击者的流程：SYN Flood程序有两种攻击方式，基于IP的和基于域名的，前者是攻击者自己进行域名解析并将IP地址传递给攻击程序，后者是攻击程序自动进行域名解析，但是它们有一点是相同的，就是一旦攻击开始，将不会再进行域名解析，我们的切入点正是这里：假设一台服务器在受到SYN Flood攻击后迅速更换自己的IP地址，那么攻击者仍在不断攻击的只是一个空的IP地址，并没有任何主机，而防御方只要将DNS解析更改到新的IP地址就能在很短的时间内（取决于DNS的刷新时间）恢复用户通过域名进行的正常访问。为了迷惑攻击者，我们甚至可以放置一台“牺牲”服务器让攻击者满足于攻击的“效果”（由于DNS缓冲的原因，只要攻击者的浏览器不重起，他访问的仍然是原先的IP地址）。 
+
+同样的原因，在众多的负载均衡架构中，基于DNS解析的负载均衡本身就拥有对SYN Flood的免疫力，基于DNS解析的负载均衡能将用户的请求分配到不同IP的服务器主机上，攻击者攻击的永远只是其中一台服务器，虽然说攻击者也能不断去进行DNS请求从而打破这种“退让”策略，但是一来这样增加了攻击者的成本，二来过多的DNS请求可以帮助我们追查攻击者的真正踪迹（DNS请求不同于SYN攻击，是需要返回数据的，所以很难进行IP伪装）。 
+ 
+PCIE SSD对数据库架构的影响巨大| Web性能优化：说说您的独门绝技 | 软件硬件谁在引领IT技术革命 | 《大数据时代的IT架构设计》有奖讨论 
+  
+  
+
+ybbnew ybbnew 当前离线 空间积分0 信誉积分110 UID372070阅读权限10积分162帖子202精华0可用积分162 专家积分0 在线时间13 小时注册时间2003-08-14最后登录2012-11-05. 
+
+白手起家
+
+
+白手起家, 积分 162, 距离下一级还需 38 积分
+帖子202主题41精华0可用积分162 专家积分0 在线时间13 小时注册时间2003-08-14最后登录2012-11-05.问答好友博客消息.论坛徽章:0. 7楼 [报告]  发表于 2004-09-17 16:07:29 |只看该作者 几天以来的防御syn flood攻击心得
+"主要流程是获得当前处于ESTABLISHED和SYN_RECV状态的连接,然后获 
+得处于这种链接的ip,统计每个ip占用的连接数,当这个数目大于特定值 
+的时候(在这个web浏览为主的小网站上我设置的是40).就用system()函 
+数调用/sbin/iptables -A INPUT -s **.**.**.** -j REJECT来封掉这 
+个ip. "
+兄弟，把你这个东西拿来让大家用用？ 
+ 
+PCIE SSD对数据库架构的影响巨大| Web性能优化：说说您的独门绝技 | 软件硬件谁在引领IT技术革命 | 《大数据时代的IT架构设计》有奖讨论 
+  
+  
+
+wddllyy wddllyy 当前离线 空间积分0 信誉积分100 UID763555阅读权限10积分25帖子21精华2可用积分25 专家积分0 在线时间1 小时注册时间2004-09-17最后登录2011-05-20. 
+
+白手起家
+
+
+白手起家, 积分 25, 距离下一级还需 175 积分
+帖子21主题3精华2可用积分25 专家积分0 在线时间1 小时注册时间2004-09-17最后登录2011-05-20.问答好友博客消息.论坛徽章:0. 8楼 [报告]  发表于 2004-09-17 17:56:24 |只看该作者 几天以来的防御syn flood攻击心得
+原帖由 "ybbnew" 发表：
+"主要流程是获得当前处于ESTABLISHED和SYN_RECV状态的连接,然后获 
+得处于这种链接的ip,统计每个ip占用的连接数,当这个数目大于特定值 
+的时候(在这个web浏览为主的小网站上我设置的是40).就用system()函 
+数调用..........
+
+呵呵  程序太小还不够友好和完善
+我打算完善后再发布
+
+如果你急需，给我个邮箱  我发给你可执行程序
+ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), for GNU/Linux 2.2.5, dynamically linked (uses shared libs), 
+not stripped
+格式 
+ 
+PCIE SSD对数据库架构的影响巨大| Web性能优化：说说您的独门绝技 | 软件硬件谁在引领IT技术革命 | 《大数据时代的IT架构设计》有奖讨论 
+  
+  
+
+freeand freeand 当前离线 空间积分0 信誉积分126 UID20076282阅读权限20积分557帖子532精华2可用积分559 专家积分0 在线时间75 小时注册时间2003-07-28最后登录2012-11-21. 
+
+丰衣足食
+
+
+
+丰衣足食, 积分 557, 距离下一级还需 443 积分
+帖子532主题106精华2可用积分559 专家积分0 在线时间75 小时注册时间2003-07-28最后登录2012-11-21.问答好友博客消息.论坛徽章:0. 9楼 [报告]  发表于 2004-09-17 20:38:45 |只看该作者 几天以来的防御syn flood攻击心得
+早几年的攻击都是假IP了，一次变一个，怎么防？？？！！！ 
+ 
+PCIE SSD对数据库架构的影响巨大| Web性能优化：说说您的独门绝技 | 软件硬件谁在引领IT技术革命 | 《大数据时代的IT架构设计》有奖讨论 
+  
+  
+
+wddllyy wddllyy 当前离线 空间积分0 信誉积分100 UID763555阅读权限10积分25帖子21精华2可用积分25 专家积分0 在线时间1 小时注册时间2004-09-17最后登录2011-05-20. 
+
+白手起家
+
+
+白手起家, 积分 25, 距离下一级还需 175 积分
+帖子21主题3精华2可用积分25 专家积分0 在线时间1 小时注册时间2004-09-17最后登录2011-05-20.问答好友博客消息.论坛徽章:0. 10楼 [报告]  发表于 2004-09-17 22:31:59 |只看该作者 几天以来的防御syn flood攻击心得
+[quote]原帖由 "freeand"]早几年的攻击都是假IP了，一次变一个，怎么防？？？！！！[/quote 发表：
+
+这个除了改进协议，提高挨打能力，还有还有一种退让策略外我想不会有什么简单的方法?
+
+可是上述三种方法都不是简简单单的一个人编软件就能完成的。
+而且每种的费用都是巨大的。
+我这里只是针对最简单的攻击
+限制于每一个ip的所有connection显示的ip都是同一个ip源 
+ 
+PCIE SSD对数据库架构的影响巨大| Web性能优化：说说您的独门绝技 | 软件硬件谁在引领IT技术革命 | 《大数据时代的IT架构设计》有奖讨论 
+  
+  
+
+     
+123下一页返回列表  .
+ChinaUnix.net ? 论坛 ? IT运维 ? 数据安全 ? 几天以来的防御syn flood攻击心得 . 高级模式 B Color Image Link Quote Code Smilies 您需要登录后才可以回帖 登录 | 注册  .  
+发表回复 回帖后跳转到最后一页 
+ 
+.北京皓辰网域网络信息技术有限公司. 版权所有 京ICP证:060528号 北京市公安局海淀分局网监中心备案编号：1101082001
+广播电视节目制作经营许可证(京) 字第1234号 中国互联网协会会员  联系我们： 
+感谢所有关心和支持过ChinaUnix的朋友们 转载本站内容请注明原作者名及出处
+清除 Cookies - ChinaUnix - Archiver - WAP - TOP  
+   积分 0, 距离下一级还需 积分 

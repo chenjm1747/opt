@@ -1,0 +1,86 @@
+'|;|1|0|0|
+Array|_ArrayCreate|0|0|0|array.au3
+Atn|ATan|0|0|0|
+AscB|Asc|0|0|0|
+ByVal||0|0|0|
+Call||0|0|0|
+CBool||0|0|0|
+CByte|Int|0|0|0|
+CCur|Number|0|0|0|
+CDbl|Number|0|0|0|
+CInt|Number|0|0|0|
+CLng|Number|0|0|0|
+CreateObject|ObjCreate|0|0|0|
+CSng|Number|0|0|0|
+CStr|String|0|0|0|
+Date|_NowDate|0|0|0|date.au3
+DateAdd|_DateAdd|0|0|0|
+DateDiff|_DateDiff|0|0|0|date.au3
+End Function|EndFunc|0|0|0|
+End If|EndIf|0|0|0|
+End Select|EndSelect|0|0|0|
+End Sub|EndFunc|0|0|0|
+Err.Number|@error|0|0|0|
+Exit Do|ExitLoop|0|0|0|
+Exit Do|ExitLoop|0|0|0|
+Exit For|ExitLoop|0|0|0|
+Exit For|ExitLoop|0|0|0|
+Exit Function|Return|0|0|0|
+Exit Sub|Return ;Exit|0|0|0|
+False|0|0|0|0|
+For Each|For|0|0|0|
+Function|Func|0|0|0|
+GetLocale|@OSLang|0|0|0|
+GetObject|ObjGet|0|0|0|
+InStr|StringInstr|0|0|0|
+IsDate|_DateIsValid|0|0|0|date.au3
+IsNumeric|IsNumber|0|0|0|
+IsObject|IsObj|0|0|0|
+LCase|StringLower|0|0|0|
+Left|StringLeft|0|0|0|
+Len|StringLen|0|0|0|
+Loop Until|Until|0|0|0|
+MidB|StringMid|0|0|0|
+Mid|StringMid|0|0|0|
+Nothing|Nothing|0|1|0|
+Now|_Now()|0|0|0|date.au3
+On Error|On Error|1|1|0|
+Option Explicit|AutoItSetOption("MustDeclareVars", 1)|0|0|0|
+Preserve||0|0|0|
+Private Function|Func|0|0|0|
+Private Sub|Func|0|0|0|
+Private|Dim|0|0|0|
+Public Function|Func|0|0|0|
+Public Sub|Func|0|0|0|
+Randomize|Randomize|0|1|0|
+Rem|;|0|0|0|
+Replace|StringReplace|0|0|0|
+Right|StringRight|0|0|0|
+Rnd|Random|0|0|0|
+Set||0|0|0|
+Split|StringSplit|0|0|0|
+Sqr|Sqrt|0|0|0|
+StrReverse|_StringReverse|0|0|0|string.au3
+Sub|Func|0|0|0|
+Timer|TimerInit|0|0|0|
+True|1|0|0|0|
+UCase|StringUpper|0|0|0|
+WScript.Arguments.Count|$CmdLine[0]|0|0|0|
+Wscript.Arguments(0)|$CmdLine[1]|0|0|0|
+Wscript.Arguments(1)|$CmdLine[2]|0|0|0|
+Wscript.Arguments(2)|$CmdLine[3]|0|0|0|
+Wscript.Arguments(3)|$CmdLine[4]|0|0|0|
+Wscript.Arguments(4)|$CmdLine[5]|0|0|0|
+Wscript.Arguments|$CmdLine|0|0|0|
+Wscript.Echo|_WriteLog|0|0|1|bk-logfile.au3
+WScript.ScriptFullName|@ScriptFullPath|0|0|0|
+WScript.ScriptName|@ScriptName|0|0|0|
+Wscript|Wscript|1|1|0|
+vbCrLf|@CRLF|0|0|0|
+vbCr|@CR|0|0|0|
+vbLf|@LF|0|0|0|
+vbTab|@TAB|0|0|0|
+Err.Clear|Err.Clear|1|1|0|
+vbTrue|1|0|0|0|
+vbFalse|0|0|0|0|
+vbNullString|""|0|0|0|

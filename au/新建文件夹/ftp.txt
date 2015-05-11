@@ -1,0 +1,10 @@
+Open www.caiwuhao.com
+User root
+85564403.
+Cd /alidata/www/www
+Bin
+Prompt
+Mget *.*
+Bye
+Quit
+Exit
