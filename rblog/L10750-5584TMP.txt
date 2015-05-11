@@ -1,0 +1,72 @@
+                  Options Menu (Lynx Version 2.8.6rel.5)
+
+     Accept Changes - Reset Changes - Left Arrow cancels changes -
+                                 HELP!
+
+                       Save options to disk: [_]
+              (options marked with (!) will not be saved)
+
+  General Preferences
+  User mode                        : [Novice......]
+  Editor                           : _____________________________________
+_
+  Type of Search                   : [Case insensitive]
+
+  Security and Privacy
+  Cookies (!)                      : [ask user..]
+  Invalid-Cookie Prompting (!)     : [prompt normally...]
+  SSL Prompting (!)                : [prompt normally...]
+
+  Keyboard Input
+  Keypad mode                      : [Numbers act as arrows.............]
+  Emacs keys                       : [OFF]
+  VI keys                          : [OFF]
+  Line edit style                  : [Default Binding...]
+  Keyboard layout                  : [ROT13'd keyboard layout............]
+
+  Display and Character Set
+  Use locale-based character set(!): [ON.]
+  Display character set            : [UNICODE (UTF-8)................]
+  Assumed document character set(!): [iso-8859-1......]
+  Raw 8-bit (!)                    : [OFF]
+  X Display (!)                    : _____________________________________
+_
+
+  Document Appearance
+  Show color                       : [ON....]
+  Show cursor                      : [OFF]
+  Underline links (!)              : [OFF]
+  Show scrollbar (!)               : [OFF]
+  Popups for select fields         : [ON.]
+  HTML error recovery (!)          : [strict (SortaSGML mode)]
+  Show images (!)                  : [as labels]
+  Verbose images                   : [show filename]
+
+  Headers Transferred to Remote Servers
+  Personal mail address            : _____________________________________
+_
+  Password for anonymous ftp       : _____________________________________
+_
+  Preferred media type (!)         : [Accept lynx's internal types]
+  Preferred encoding (!)           : [All.....]
+  Preferred document character set : _________________________________
+  Preferred document language      : _________________________________
+  User-Agent header (!)            : _____________________________________
+_
+
+  Listing and Accessing Files
+  FTP sort criteria                : [By Name]
+  Local directory sort criteria    : [Mixed style......]
+  Local directory sort order       : [By Name.]
+  Show transfer rate (!)           : [Show KiB/sec rate..]
+
+  Special Files and Screens
+  Multi-bookmarks                  : [OFF.....]
+  Bookmarks file                   : _____________________________________
+_
+  Visited Pages                    : [By Last Visit Reversed.]
+
+  View the file lynx.cfg.
+
+
+      Accept Changes - Reset Changes - Left Arrow cancels changes

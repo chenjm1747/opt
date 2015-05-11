@@ -1,0 +1,96 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+zh-CN:
+  Back: "退回"
+  activerecord:
+    models:
+      blog: "博客" 
+      yonghu: "注册用户"
+      p2pcompany: "公司"
+      p2pproduct: "产品"
+    attributes:
+      p2pcompany:
+        c_name: "公司名称"
+        c_icon: "公司图标"
+        c_net_address: "公司网站"
+        c_phone: "公司电话"
+        c_address: "公司地址"
+        c_create_time: "创建时间"
+        c_persion: "法人代表"
+        c_province: "所在省份"
+        c_product_type: "项目类型"
+      p2pproduct:
+        name: "产品名称"
+        company: "公司"        
+        lowestamount: "最低投资额"
+        producttypelabel: "企业类型"
+        suppliernameshort: "短名"
+        supplierlogourl: "logo"
+        channelurl: "企业网址"
+        expectedprofitrate: "收益率"
+        idea: "创意"
+        Extrafield: "投资周期"
+        Invertfield: "投资类型"
+        Tterm: "投资期限"
+        p_min_inverstment: "起投金额"
+        p_is_redeem: "是否赎回"
+        p_is_transfer: "是否转让"
+        p_title: "产品标题"
+      yonghu:
+        xingming: "姓名"
+        gongsimingcheng: "公司名称"
+        shouji: "手机号码"
+        qq: "QQ"
+        quhao: "区号"
+        gongsidianhua: "公司电话"
+        ip: "IP"
+      blog: 
+        title: "标题"
+        body: "内容"
+        tag: "标签"
+      user:
+        name: "帐号"
+        password: "密码"
+        password_confirmation: ""
+        question: "忘记密码问题"
+        answer: "忘记密码答案"
+ 
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "不能为空"
+              taken: "已被注册"
+            password:
+              blank: "不能为空"
+              too_short: "最短%{count}个字符"
+              too_long:  "最长%{count}个字符"
+            password_confirmation:
+              blank: "重置密码不能为空"
+              confirmation: "两次密码输入不一致，请重新输入"
+            question:
+              blank: "不能为空"
+            answer:
+              blank: "不能为空"
+
+
