@@ -1,5 +1,4 @@
 class P2pcompaniesController < ApplicationController
-  before_action :set_p2pcompany, only: [:show, :edit, :update, :destroy]
   def upload
     uploaded_io = params[:person][:picture]
     File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
@@ -11,6 +10,7 @@ class P2pcompaniesController < ApplicationController
   # GET /p2pcompanies.json
   def index
     @p2pcompanies = P2pcompany.all
+    @p2pcompanies = P2pcompany.paginate(:page=>params[:page])
   end
 
   # GET /p2pcompanies/1

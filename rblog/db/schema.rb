@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501082100) do
+ActiveRecord::Schema.define(version: 20150512134347) do
+
+  create_table "azufangs", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.text     "innertext"
+    t.string   "xiaoqu"
+    t.string   "title"
+    t.integer  "area"
+    t.integer  "minprice"
+    t.string   "lianxiren"
+    t.string   "phone"
+    t.string   "tupian"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+  end
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -102,8 +121,12 @@ ActiveRecord::Schema.define(version: 20150501082100) do
     t.integer  "quhao"
     t.integer  "gongsidianhua"
     t.string   "ip"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
 end

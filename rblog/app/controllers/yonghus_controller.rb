@@ -6,9 +6,6 @@ class YonghusController < ApplicationController
   # GET /yonghus
   # GET /yonghus.json
   def index
-	  ic = Iconv.new("GB2312//IGNORE","UTF8//IGNORE")
-	  yang = open("http://www.inmis.com/product_view.asp?id=1177")
-	  @data = Iconv.iconv("GB18030//IGNORE","UTF8//IGNORE",yang.read)
     @yonghus = Yonghu.all
   end
 
@@ -74,6 +71,6 @@ class YonghusController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def yonghu_params
-      params.require(:yonghu).permit(:xingming, :gongsimingcheng, :shouji, :qq, :quhao, :gongsidianhua, :ip)
+      params.require(:yonghu).permit(:xingming, :gongsimingcheng, :shouji, :qq, :quhao, :gongsidianhua, :ip,:avatar)
     end
 end

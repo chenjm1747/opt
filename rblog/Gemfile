@@ -45,5 +45,7 @@ group :development, :test do
   gem 'iconv'
   gem 'jquery-ui-rails'
   gem 'will_paginate'
+  gem 'paperclip'
+  gem 'rmagick'
 end
 

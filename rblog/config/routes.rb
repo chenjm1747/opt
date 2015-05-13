@@ -1,18 +1,9 @@
 Rails.application.routes.draw do
-  resources :p2pproducts
-  resources :p2pproducts
-  resources :p2pproducts
+  resources :azufangs
   resources :p2pproducts
   resources :documents
   resources :p2pcompanies
   resources :p2pproducts
-  resources :yonghus
-  resources :yonghus
-  resources :yonghus
-  resources :yonghus
-  resources :yonghus
-  resources :yonghus
-  resources :yonghus
   resources :yonghus
   resources :blogs
   resources :softnames

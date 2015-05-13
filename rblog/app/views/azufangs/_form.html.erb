@@ -1,0 +1,58 @@
+<%= form_for @azufang, :html => { :multipart => true } do |f| %>
+  <% if @azufang.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@azufang.errors.count, "error") %> prohibited this azufang from being saved:</h2>
+
+      <ul>
+      <% @azufang.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :username %><br>
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.text_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :innertext %><br>
+    <%= f.text_area :innertext %>
+  </div>
+  <div class="field">
+    <%= f.label :xiaoqu %><br>
+    <%= f.text_field :xiaoqu %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :area %><br>
+    <%= f.number_field :area %>
+  </div>
+  <div class="field">
+    <%= f.label :minprice %><br>
+    <%= f.number_field :minprice %>
+  </div>
+  <div class="field">
+    <%= f.label :lianxiren %><br>
+    <%= f.text_field :lianxiren %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :tupian %><br>
+    <%= f.text_field :tupian %>
+  </div>
+    <%= f.file_field :photo%>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

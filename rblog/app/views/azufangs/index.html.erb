@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Azufangs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Innertext</th>
+      <th>Xiaoqu</th>
+      <th>Title</th>
+      <th>Area</th>
+      <th>Minprice</th>
+      <th>Lianxiren</th>
+      <th>Phone</th>
+      <th>Tupian</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @azufangs.each do |azufang| %>
+      <tr>
+        <td><%= azufang.username %></td>
+        <td><%= azufang.password %></td>
+        <td><%= azufang.innertext %></td>
+        <td><%= azufang.xiaoqu %></td>
+        <td><%= azufang.title %></td>
+        <td><%= azufang.area %></td>
+        <td><%= azufang.minprice %></td>
+        <td><%= azufang.lianxiren %></td>
+        <td><%= azufang.phone %></td>
+        <td><%= azufang.tupian %></td>
+        <td><%= link_to 'Show', azufang %></td>
+        <td><%= link_to 'Edit', edit_azufang_path(azufang) %></td>
+        <td><%= link_to 'Destroy', azufang, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Azufang', new_azufang_path %>

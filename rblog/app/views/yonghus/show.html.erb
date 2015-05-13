@@ -34,6 +34,6 @@
   <strong>Ip:</strong>
   <%= @yonghu.ip %>
 </p>
-
+<%= image_tag @yonghu.avatar.url(:thumb) %>
 <%= link_to 'Edit', edit_yonghu_path(@yonghu) %> |
 <%= link_to 'Back', yonghus_path %>
