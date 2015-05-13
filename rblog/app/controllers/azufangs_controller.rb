@@ -1,5 +1,5 @@
 class AzufangsController < ApplicationController
-  before_action :set_azufang, only: [:show, :edit, :update, :destroy]
+  before_action :set_azufang, only: [:show, :edit, :update, :destroy,:tuiguang]
 
   # GET /azufangs
   # GET /azufangs.json
@@ -11,7 +11,9 @@ class AzufangsController < ApplicationController
   # GET /azufangs/1.json
   def show
   end
-
+  def tuiguang
+  @azufang.update( :money => @azufang.money+1 )
+  end
   # GET /azufangs/new
   def new
     @azufang = Azufang.new
@@ -69,6 +71,6 @@ class AzufangsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def azufang_params
-      params.require(:azufang).permit(:username, :password, :innertext, :xiaoqu, :title, :area, :minprice, :lianxiren, :phone, :tupian,:photo)
+      params.require(:azufang).permit(:username, :password, :innertext, :xiaoqu, :title, :area, :minprice, :lianxiren, :phone, :tupian,:photo,:money)
     end
 end
