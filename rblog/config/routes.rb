@@ -1,23 +1,18 @@
 Rails.application.routes.draw do
-  resources :p2pproducts
-  resources :p2pproducts
-  resources :p2pproducts
+  resources :welcomes
+  devise_for :users
+  root :to => "welcomes#index"
+  resources :azufangs
   resources :p2pproducts
   resources :documents
   resources :p2pcompanies
   resources :p2pproducts
   resources :yonghus
-  resources :yonghus
-  resources :yonghus
-  resources :yonghus
-  resources :yonghus
-  resources :yonghus
-  resources :yonghus
-  resources :yonghus
   resources :blogs
   resources :softnames
   resources :people
   resources :companies
+  get 'azufangs/:id/tuiguang' => 'azufangs#tuiguang'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
