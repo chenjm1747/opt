@@ -21,6 +21,7 @@
 
 zh-CN:
   Back: "退回"
+  sign up: "注册"
   activerecord:
     models:
       blog: "博客" 
@@ -70,10 +71,11 @@ zh-CN:
       user:
         name: "帐号"
         password: "密码"
-        password_confirmation: ""
+        Log_in: "登陆"
+        password_confirmation: "再次确认密码"
         question: "忘记密码问题"
         answer: "忘记密码答案"
- 
+        unauthenticated: "未验证" 
     errors:
       models:
         user:

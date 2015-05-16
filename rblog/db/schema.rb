@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513072908) do
+ActiveRecord::Schema.define(version: 20150516082952) do
 
   create_table "azufangs", force: :cascade do |t|
     t.string   "username"
@@ -33,6 +33,11 @@ ActiveRecord::Schema.define(version: 20150513072908) do
     t.integer  "money"
     t.string   "weixin"
     t.integer  "qq"
+    t.integer  "shi"
+    t.integer  "ting"
+    t.integer  "wei"
+    t.integer  "ceng"
+    t.integer  "zongceng"
   end
 
   create_table "blogs", force: :cascade do |t|

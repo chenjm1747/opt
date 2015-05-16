@@ -71,6 +71,6 @@ class AzufangsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def azufang_params
-      params.require(:azufang).permit(:username, :password, :innertext, :xiaoqu, :title, :area, :minprice, :lianxiren, :phone, :tupian,:photo,:money)
+      params.require(:azufang).permit(:username, :password, :innertext, :xiaoqu, :title, :area, :minprice, :lianxiren, :phone, :tupian,:photo,:money,:shi,:ting,:wei,:ceng,:zongceng)
     end
 end

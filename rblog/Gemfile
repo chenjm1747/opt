@@ -46,5 +46,6 @@ group :development, :test do
   gem 'paperclip'
   gem 'rmagick'
   gem 'devise'
+  gem "twitter-bootstrap-rails"
 end
 
