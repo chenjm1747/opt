@@ -1,0 +1,76 @@
+unit Main;
+{
+	TAPI Test
+        by Davide Moretti <dave@rimini.com>
+
+	this code is freeware, and can be used
+	anywhere without permission.
+}
+
+interface
+
+uses
+  SysUtils, WinTypes, WinProcs, Messages, Classes, Graphics, Controls,  Tapi,
+  Forms, Dialogs, StdCtrls;
+
+type
+	TfrmMain = class(TForm)
+		btnMonitor: TButton;
+		btnCall: TButton;
+    Button1: TButton;
+		procedure btnMonitorClick(Sender: TObject);
+		procedure btnCallClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+	private
+		lineApp: THLineApp;
+		line: THLine;
+		call: THCall;
+		CallParams: TlineCallParams;
+	public
+		{ Public declarations }
+		Monitor: Boolean;
+		Call: Boolean;
+	end;
+
+var
+	frmMain: TfrmMain;
+	frmTAPICall: TfrmTAPICall;
+implementation
+
+{$R *.DFM}
+
+uses MonForm, CallForm;
+
+procedure TfrmMain.btnMonitorClick(Sender: TObject);
+	begin
+	if Monitor = false then
+		begin
+		frmTAPIMon := TfrmTAPIMon.Create(Self);
+		frmTAPIMon.Show;
+		Monitor := True;
+		end;
+	end;
+
+procedure TfrmMain.btnCallClick(Sender: TObject);
+	begin
+	if Call = False then
+		begin
+		frmTAPICall := TfrmTAPICall.Create(Self);
+		frmTAPICall.Show;
+		Call := True;
+		end;
+	end;
+
+procedure TfrmMain.Button1Click(Sender: TObject);
+	var
+		c: array[0..30] of char;
+	begin
+  		CallParams.dwMediaMode := LINEMEDIAMODE_INTERACTIVEVOICE
+
+	if Length(Edit1.Text) > 0 then
+		begin
+		StrPCopy(c, Edit1.Text);
+		lineMakeCall(line, call, c, 0, @CallParams)
+	end;
+
+end.

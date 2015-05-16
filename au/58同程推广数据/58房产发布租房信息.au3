@@ -11,7 +11,31 @@
 #include <ScreenCapture.au3>
 #include <WindowsConstants.au3>
 $sFilePath = @TempDir & "\FileRead.txt"
-InetGet("http://dx.caiwuhao.com:3000/azufangs/1.json", $sFilePath, 1)
+
+
+Local $oIE = _IECreateEmbedded()
+GUICreate("58同程发帖程序", @DesktopWidth, @DesktopHeight, 0, 0, _
+        $WS_OVERLAPPEDWINDOW + $WS_CLIPSIBLINGS + $WS_CLIPCHILDREN)
+GUICtrlCreateObj($oIE, 0, 20, @DesktopWidth, @DesktopHeight)
+
+Global $g_idError_Message = GUICtrlCreateLabel("", 100, 500, 500, 30)
+GUICtrlSetColor(-1, 0xff0000)
+GUISetState(@SW_SHOW) ;Show GUI
+InetGet("http://dx.caiwuhao.com:3000/azufangs.json", $sFilePath, 1)
+Local $hFileOpen = FileOpen($sFilePath, 0)
+If $hFileOpen = -1 Then
+    MsgBox(0, "", "无法获取服务器参数。检查网络")
+    Return False
+EndIf
+$json = FileRead($hFileOpen)
+FileClose($hFileOpen)
+FileDelete($sFilePath)
+$aArray = StringRegExp($json, '(\d+).json"}]', 1)
+$zufangcount=$aarray[0]
+ConsoleWrite ($zufangcount)
+For $i = $zufangcount To 1 Step -1
+;循环
+InetGet("http://dx.caiwuhao.com:3000/azufangs/"&$i&".json", $sFilePath, 1)
 Local $hFileOpen = FileOpen($sFilePath, 0)
     If $hFileOpen = -1 Then
         MsgBox(0, "", "An error occurred when reading the file.")
@@ -23,13 +47,12 @@ FileDelete($sFilePath)
 $oMSSC = ObjCreate('ScriptControl')
 $oMSSC.Language = 'JavaScript'
 $oMSSC.AddCode('var a = ' & $json & ';')
-ConsoleWrite('var a = {' & $json & '};')
 $id = $oMSSC.Eval('a.id');age
 $username = $oMSSC.Eval('a.username');age
 $Passwd =$oMSSC.Eval('a.password');age
 $innertext =$oMSSC.Eval('a.innertext');age
 $xiaoqu =$oMSSC.Eval('a.xiaoqu')
-$title =$oMSSC.Eval('a.title')
+$titlefangzi =$oMSSC.Eval('a.title')
 $area =$oMSSC.Eval('a.area')
 $minprice =$oMSSC.Eval('a.minprice')
 $lianxiren=$oMSSC.Eval('a.lianxiren')
@@ -37,23 +60,14 @@ $phone =$oMSSC.Eval('a.phone')
 $updated_at=$oMSSC.Eval('a.updated_at')
 $aArray = StringRegExp($updated_at, '(.+?)T', 1)
 $updated_at=$aarray[0]
-;发布
-
-$tupian =$oMSSC.Eval('a.tupian')
+;发布http://10.10.20.39:3000/photos/2/thumb/2.jpg?1431442390
+$tupian ="http://dx.caiwuhao.com:3000/photos/"&$id&"/thumb/"&$id&".jpg"
 $sfilejpg = @TempDir & "\"&$id&".jpg"
 InetGet($tupian, $sfilejpg, 1)
-
-Local $oIE = _IECreateEmbedded()
-GUICreate("Embedded Web control Test", @DesktopWidth, @DesktopHeight, 0, 0, _
-        $WS_OVERLAPPEDWINDOW + $WS_CLIPSIBLINGS + $WS_CLIPCHILDREN)
-GUICtrlCreateObj($oIE, 0, 20, @DesktopWidth, @DesktopHeight)
-
-Global $g_idError_Message = GUICtrlCreateLabel("", 100, 500, 500, 30)
-GUICtrlSetColor(-1, 0xff0000)
-;1053*459
-GUISetState(@SW_SHOW) ;Show GUI
 login()
 chuzu()
+Next
+
 Exit
 While 1
     Local $iMsg = GUIGetMsg()
@@ -83,7 +97,7 @@ $xiaoqu.value=$xiaoqu
 $oIE.document.parentWindow.aspnetForm.zonglouceng.value=20
 $oIE.document.parentWindow.aspnetForm.Toward.value=2
 $oIE.document.parentWindow.aspnetForm.FitType.value=4
-$oIE.document.parentWindow.aspnetForm.Title.value=$title
+$oIE.document.parentWindow.aspnetForm.Title.value=$titlefangzi
 $oIE.document.parentWindow.aspnetForm.area.value=$area
 $oIE.document.parentWindow.aspnetForm.MinPrice.value=$minprice
 $oIE.document.parentWindow.aspnetForm.goblianxiren.value=$lianxiren
@@ -91,7 +105,7 @@ $oIE.document.parentWindow.aspnetForm.Phone.value=$phone
 ;$oIE.document.parentWindow.aspnetForm.cbxFreeDivert.click()
 $xiaoqu=_IEGetObjById($oie,"changetuSingle")
 $xiaoqu.click()
-run(@AppDataDir"\upload.exe "&$sfilejpg)
+run(@ScriptDir &"\upload.exe "&$sfilejpg)
 $xiaoqu=_IEGetObjById($oie,"fileUploadInput")
 if @error>0 then
    else
@@ -120,8 +134,8 @@ sleep(1000)
 $oIE.document.parentWindow.aspnetForm.fabu.click()
 _IELoadWait($oie)
 sleep(50000)
-
-   endfunc
+_IENavigate($oIE, "https://passport.58.com/logout?path=http%3A//my.58.com/%3Fpts")
+endfunc
 
 func login()
    ;登录

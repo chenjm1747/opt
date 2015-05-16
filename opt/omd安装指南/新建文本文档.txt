@@ -1,0 +1,7 @@
+omd 安装指南
+
+官网 http://omdistro.org/start
+http://files.omdistro.org/releases/centos_rhel/omd-1.20.rhel6.x86_64.rpm
+http://chenlinux.com/2011/12/19/omd_intro_install_on_centos5/
+http://www.zouliblog.cn/?p=145
+这篇是干货.一般程序不会配置监控.对监控熟悉和了解的也就只有运维了.

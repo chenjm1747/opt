@@ -1,0 +1,107 @@
+AutoIt 目前最新是v3版本，这是一个使用类似BASIC脚本语言的免费软件，它设计用于Windows GUI(图形用户界面)中进行自动化操作.它利用模拟键盘按键，鼠标移动和窗口/控件的组合来实现自动化任务.
+过多专业语言不废话，google下有很多，在公司里碰到支付宝密码控件用watir无法识别的情况(确切的说是无法输入密码)，困扰了好半天，突然想起用autotit来处理也许可以，稍微琢磨了下，code：
+WinActivate("支付宝 - 收银台 - Windows Internet Explorer")
+ControlSend("支付宝 - 收银台 - Windows Internet Explorer"， ""， "[CLASS:ATL:Edit; INSTANCE:1]"， "password")
+==>转换为watir语法
+require "win32ole"
+alipay = WIN32OLE.new("AutoItX3.Control")
+alipay.WinActivate("支付宝") #这行可以省略
+alipay.ControlSend("支付宝"， ""， "[CLASS:ATL:Edit; INSTANCE:1]"， "1111112")
+补充说明下：
+文本输入语法有很多，各不相同，时间缘故还未深入研究其区别，有问题的时候不妨挨个试试^^，其他输入文本的语法列举：
+1.ControlSetText("[ACTIVE]"，""，"[CLASS:ATL:Edit; INSTANCE:1]"，"password")
+2.Send("password"，1)
+->send要与click动作辅助使用(先获取控件焦点)
+mouseclick("left"，357，508) 或
+ControlClick("阿里旺旺2009"， ""， "[CLASS:StandardButton;INSTANCE:8]"，"left"，1)
+总结：对于非标准的html标签的识别和操作，autoit是一个很好的解决问题的思路！
+附两个案例
+1.计算器加法
+Run("calc.exe")
+WinWaitActive("计算")
+ControlClick("计算器"，""，"1")
+ControlClick("计算器"，""，"+")
+ControlClick("计算器"，""，"2")
+ControlClick("计算器"，""，"=")
+$Result = ControlGetText("计算器"，""，403)
+if $Result == "3. " Then
+FileWriteLine("c: esult.txt"，"正确。")
+Else
+FileWriteLine("c: esult.txt"，"错误！")
+EndIf
+WinClose("计算器")
+2.登录聊天工具、发消息、退出
+;参数变量设置
+Global $userid = "zhanqiao123"     ;用户id
+Global $password = "password"    ;用户password
+Global $message = "autoit的测试，呵呵！"  ;发送消息内容
+Global $aliwangwang = "阿里旺旺2009"   ;旺旺title
+Global $wangwangTitle = $userid & "-" & $aliwangwang ;登录后的旺旺title
+Global $aliwangPath = "C:Program FilesAliWangWang"
+sign_in()        ;登录阿里旺旺
+send_message()   ;查找用户，并发送旺旺消息
+;sign_out()      ;注销阿里旺旺
+exit_process()   ;退出阿里旺旺
+Func send_message()
+;功能实现：查找并发送旺旺消息
+WinActivate($wangwangTitle)
+;ControlSend($wangwangTitle， ""， "[CLASS:EditComponent; INSTANCE:2]"， $userid) ;如何清空原先已经存在内容？
+$Z=wingetpos($wangwangTitle) ;获取坐标
+;用户名输入
+mouseclick("left"，$Z[0]+100，$Z[1]+111)   ;搜索用户名输入框
+Send("{HOME}+{END}{Delete}") ;清空原有内容
+Send($userid，1) ;1表示全部为普通字符
+Sleep(2000)
+mouseclick("left"，$Z[0]+100，$Z[1]+163)   ;点击搜索到的用户名
+WinActivate("[CLASS:StandardFrame]") ;WinActivate("姓名") ;局限于不同用户的姓名 ;WinActivate("[ACTIVE]"， "")
+ControlSetText("[ACTIVE]"，""，""，$message) ;Send("test message:{Chr(F92C)}");不支持中文
+Send("{Enter}")
+WinClose("[ACTIVE]")
+EndFunc
+Func sign_in()
+If Not WinExists($windows) Then
+   MsgBox(0，""，"请启动aliwangwang。再运行.")
+   Exit
+  EndIf
+Run($aliwangPath & "AliIM.exe")
+WinWait($aliwangwang)
+;功能实现：登录阿里旺旺
+WinActivate($aliwangwang)
+$XY=wingetpos($aliwangwang) ;获取坐标
+;用户名输入
+mouseclick("left"，$XY[0]+135，$XY[1]+208) 
+Send("{HOME}+{END}{Delete}") ;清空原有内容
+Send($userid，1) ;1表示全部为普通字符
+;密码输入
+mouseclick("left"，$XY[0]+135，$XY[1]+260) ;Send("{BS 18}")
+Send("{HOME}+{END}{Delete}")
+Send($password，1)
+;登录按钮点击
+mouseclick("left"，$XY[0]+135，$XY[1]+380)
+;如何验证登陆成功？
+WinWait($wangwangTitle)
+Sleep(1000)
+;下面代码实现感觉没问题，但此种方式登录一直提示密码错误，奇怪，怪哉！
+;WinActivate("阿里旺旺2009")
+;ControlSend("阿里旺旺2009"， ""， "[CLASS:EditComponent;INSTANCE:2]"， "zhanqiao123") ;Send("{TAB}")
+;ControlSend("阿里旺旺2009"， ""， "[CLASS:ATL:Edit;INSTANCE:1]"，"stonemouse");Send("{Enter}")
+;$a = ControlClick("阿里旺旺2009"， ""， "[CLASS:StandardButton;INSTANCE:8]"，"left"，1)
+;MsgBox(0，"登录结果"，$a)
+EndFunc
+Func sign_out()
+;功能实现：注销用户
+MouseMove(1， 1) ;这样做的目的是把鼠标移开，否则刚好鼠标停留在‘菜单’上出现其他窗口，会影响下面执行
+ControlClick($wangwangTitle，""，"[CLASS:StandardButton; INSTANCE:1]") ;点击出现菜单的按钮
+WinActivate("[CLASS:coolmenu]") ;窗口切换到‘菜单’
+ControlClick("[CLASS:coolmenu]"，""，"[CLASS:StandardButton; INSTANCE:1]") ;点击‘注销’按钮
+;如何验证注销成功？
+WinClose("[ACTIVE]")
+EndFunc
+Func exit_process()
+;功能实现：注销并退出程序
+MouseMove(1， 1) ;这样做的目的是把鼠标移开，否则刚好鼠标停留在‘菜单’上出现其他窗口，会影响下面执行
+ControlClick($wangwangTitle，""，"[CLASS:StandardButton; INSTANCE:1]") ;点击出现菜单的按钮
+WinActivate("[CLASS:coolmenu]") ;窗口切换到‘菜单’
+ControlClick("[CLASS:coolmenu]"，""，"[CLASS:StandardButton; INSTANCE:2]") ;点击‘退出’按钮
+;如何验证退出成功？
+EndFunc

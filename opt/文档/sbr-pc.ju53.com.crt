@@ -1,0 +1,67 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 12 (0xc)
+        Signature Algorithm: md5WithRSAEncryption
+        Issuer: C=CN, ST=ZHEJIANG, L=HANGZHOU, O=OpenVPN-TEST, CN=vpn.ju53.com/emailAddress=yechenyang91@163.com
+        Validity
+            Not Before: May 10 03:07:38 2014 GMT
+            Not After : May  7 03:07:38 2024 GMT
+        Subject: C=CN, ST=ZHEJIANG, O=OpenVPN-TEST, CN=sbr-pc.ju53.com/emailAddress=yechenyang91@163.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (1024 bit)
+                Modulus:
+                    00:d1:36:81:59:f1:72:bd:81:bb:4d:d4:61:9c:40:
+                    01:e0:16:11:4a:b4:6a:c2:c9:b5:52:97:1d:89:de:
+                    af:85:e5:c3:c9:e3:d8:6b:c4:38:93:1b:59:a5:ca:
+                    b4:e4:79:f4:81:bf:5d:bf:94:dc:8f:07:ee:a3:47:
+                    51:01:01:ba:ae:8c:d7:b8:14:3d:5c:f0:0b:ff:57:
+                    55:fd:34:25:f7:94:64:6e:d4:8e:98:be:a8:cd:d6:
+                    5a:9b:73:36:f5:1d:e7:fc:ab:0e:d4:18:61:2b:64:
+                    35:2e:65:9d:6e:6b:39:63:66:9d:44:8a:8c:ba:16:
+                    dd:bc:e2:be:2c:4d:ac:3c:b1
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                OpenSSL Generated Certificate
+            X509v3 Subject Key Identifier: 
+                B3:23:AD:A0:C9:68:B9:9F:17:B0:47:A2:A7:5A:6B:25:08:D7:17:48
+            X509v3 Authority Key Identifier: 
+                keyid:1B:0F:95:E8:71:FC:79:59:02:D4:22:46:12:3B:AC:40:00:E0:AB:DE
+                DirName:/C=CN/ST=ZHEJIANG/L=HANGZHOU/O=OpenVPN-TEST/CN=vpn.ju53.com/emailAddress=yechenyang91@163.com
+                serial:DB:93:08:B2:11:2D:B9:19
+
+    Signature Algorithm: md5WithRSAEncryption
+        c8:1e:7b:69:96:08:77:40:91:5e:bf:ac:42:54:0a:0c:79:08:
+        7c:12:94:1f:02:18:78:0e:c6:43:25:28:7e:79:dc:1f:c7:7b:
+        3b:66:95:22:65:b3:86:d0:09:e3:c7:20:c9:30:e2:d2:30:d6:
+        2d:f9:52:40:c6:da:2b:1e:8c:5c:54:07:74:a7:49:47:fe:38:
+        1c:2b:d5:1a:cb:ad:22:a5:87:29:3e:fb:6d:3d:43:15:0d:e6:
+        31:ab:0f:92:fa:2d:4b:48:49:20:97:cb:3f:ff:e6:d4:ad:4c:
+        f2:50:38:23:a6:ca:f8:37:e0:26:58:c6:98:2d:41:5e:c1:65:
+        d9:34
+-----BEGIN CERTIFICATE-----
+MIIDjzCCAvigAwIBAgIBDDANBgkqhkiG9w0BAQQFADCBhjELMAkGA1UEBhMCQ04x
+ETAPBgNVBAgTCFpIRUpJQU5HMREwDwYDVQQHEwhIQU5HWkhPVTEVMBMGA1UEChMM
+T3BlblZQTi1URVNUMRUwEwYDVQQDEwx2cG4uanU1My5jb20xIzAhBgkqhkiG9w0B
+CQEWFHllY2hlbnlhbmc5MUAxNjMuY29tMB4XDTE0MDUxMDAzMDczOFoXDTI0MDUw
+NzAzMDczOFowdjELMAkGA1UEBhMCQ04xETAPBgNVBAgTCFpIRUpJQU5HMRUwEwYD
+VQQKEwxPcGVuVlBOLVRFU1QxGDAWBgNVBAMTD3Nici1wYy5qdTUzLmNvbTEjMCEG
+CSqGSIb3DQEJARYUeWVjaGVueWFuZzkxQDE2My5jb20wgZ8wDQYJKoZIhvcNAQEB
+BQADgY0AMIGJAoGBANE2gVnxcr2Bu03UYZxAAeAWEUq0asLJtVKXHYner4Xlw8nj
+2GvEOJMbWaXKtOR59IG/Xb+U3I8H7qNHUQEBuq6M17gUPVzwC/9XVf00JfeUZG7U
+jpi+qM3WWptzNvUd5/yrDtQYYStkNS5lnW5rOWNmnUSKjLoW3bzivixNrDyxAgMB
+AAGjggEaMIIBFjAJBgNVHRMEAjAAMCwGCWCGSAGG+EIBDQQfFh1PcGVuU1NMIEdl
+bmVyYXRlZCBDZXJ0aWZpY2F0ZTAdBgNVHQ4EFgQUsyOtoMlouZ8XsEeip1prJQjX
+F0gwgbsGA1UdIwSBszCBsIAUGw+V6HH8eVkC1CJGEjusQADgq96hgYykgYkwgYYx
+CzAJBgNVBAYTAkNOMREwDwYDVQQIEwhaSEVKSUFORzERMA8GA1UEBxMISEFOR1pI
+T1UxFTATBgNVBAoTDE9wZW5WUE4tVEVTVDEVMBMGA1UEAxMMdnBuLmp1NTMuY29t
+MSMwIQYJKoZIhvcNAQkBFhR5ZWNoZW55YW5nOTFAMTYzLmNvbYIJANuTCLIRLbkZ
+MA0GCSqGSIb3DQEBBAUAA4GBAMgee2mWCHdAkV6/rEJUCgx5CHwSlB8CGHgOxkMl
+KH553B/HeztmlSJls4bQCePHIMkw4tIw1i35UkDG2isejFxUB3SnSUf+OBwr1RrL
+rSKlhyk++209QxUN5jGrD5L6LUtISSCXyz//5tStTPJQOCOmyvg34CZYxpgtQV7B
+Zdk0
+-----END CERTIFICATE-----
