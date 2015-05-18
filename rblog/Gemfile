@@ -47,5 +47,6 @@ group :development, :test do
   gem 'rmagick'
   gem 'devise'
   gem "twitter-bootstrap-rails"
+  gem "less-rails"
 end
 
