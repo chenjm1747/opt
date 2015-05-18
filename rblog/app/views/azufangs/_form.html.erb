@@ -30,6 +30,13 @@
     <%= error_span(@azufang[:password]) %>
   </div>
   <div class="control-group">
+    <%= f.label :innertext, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :innertext, :class => 'form-control' %>
+    </div>
+    <%= error_span(@azufang[:innertext]) %>
+  </div>
+  <div class="control-group">
     <%= f.label :xiaoqu, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :xiaoqu, :class => 'form-control' %>
@@ -70,6 +77,13 @@
       <%= f.text_field :phone, :class => 'form-control' %>
     </div>
     <%= error_span(@azufang[:phone]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :tupian, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :tupian, :class => 'form-control' %>
+    </div>
+    <%= error_span(@azufang[:tupian]) %>
   </div>
   <div class="control-group">
     <%= f.label :photo_file_name, :class => 'control-label' %>
