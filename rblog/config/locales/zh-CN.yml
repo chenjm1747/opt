@@ -21,6 +21,7 @@
 
 zh-CN:
   Back: "退回"
+  Cancel: "取消"
   sign up: "注册"
   activerecord:
     models:
@@ -28,7 +29,7 @@ zh-CN:
       yonghu: "注册用户"
       p2pcompany: "公司"
       p2pproduct: "产品"
-      azufang: '房屋信息'
+      azufang: '房屋顶贴'
     attributes:
       p2pcompany:
         c_name: "公司名称"
