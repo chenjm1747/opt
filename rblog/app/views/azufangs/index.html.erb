@@ -21,7 +21,6 @@
       <th><%= model_class.human_attribute_name(:wei) %></th>
       <th><%= model_class.human_attribute_name(:ceng) %></th>
       <th><%= model_class.human_attribute_name(:zongceng) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -44,7 +43,6 @@
         <td><%= azufang.wei %></td>
         <td><%= azufang.ceng %></td>
         <td><%= azufang.zongceng %></td>
-        <td><%=l azufang.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_azufang_path(azufang), :class => 'btn btn-default btn-xs' %>
