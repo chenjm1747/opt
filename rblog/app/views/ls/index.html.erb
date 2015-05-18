@@ -1,6 +1,6 @@
 <%- model_class = L -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.titleize %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 <table class="table table-striped">
   <thead>
@@ -14,7 +14,7 @@
     <% @ls.each do |l| %>
       <tr>
         <td><%= link_to l.id, l_path(l) %></td>
-        <td><a href=http://hz.58.com/zufang/<%= l.a %>x.html>http://hz.58.com/zufang/<%=l.a%>.xhtml </a></td>
+        <td><a href=http://hz.58.com/zufang/<%= l.a %>x.html>http://hz.58.com/zufang/<%=l.a%> </a></td>
         <td><%=l l.created_at %></td>
       </tr>
     <% end %>
