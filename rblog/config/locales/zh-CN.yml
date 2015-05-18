@@ -81,19 +81,19 @@ zh-CN:
       azufang: 
         username: '58用户名'
         password:  '58密码'
-        innertext: '房间的描述'
-        xiaoqu: '所在的小区'
+        innertext: '描述'
+        xiaoqu: '小区'
         title: '标题'
-        area: '房间面积'
+        area: '面积'
         minprice: '价格'
         lianxiren: '联系人'
         phone: '手机'
         tupian: '原始58图片不建议改动'
-        zongceng: '总楼层'
-        ceng: '在第几层'
+        zongceng: '总层'
+        ceng: '几层'
         wei: '卫数'
         ting: '厅'
-        shi: '房间数'
+        shi: '房间'
    
     errors:
       models:
