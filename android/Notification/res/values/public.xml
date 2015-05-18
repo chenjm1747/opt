@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <public type="drawable" name="ic_launcher" id="0x7f020000" />
+    <public type="drawable" name="music_icon" id="0x7f020001" />
+    <public type="drawable" name="music_next" id="0x7f020002" />
+    <public type="drawable" name="music_pause" id="0x7f020003" />
+    <public type="drawable" name="music_play" id="0x7f020004" />
+    <public type="drawable" name="music_previous" id="0x7f020005" />
+    <public type="drawable" name="yan" id="0x7f020006" />
+    <public type="layout" name="activity_main" id="0x7f030000" />
+    <public type="layout" name="activity_other" id="0x7f030001" />
+    <public type="layout" name="activity_special" id="0x7f030002" />
+    <public type="layout" name="custom_notification" id="0x7f030003" />
+    <public type="layout" name="dialog" id="0x7f030004" />
+    <public type="dimen" name="activity_horizontal_margin" id="0x7f040000" />
+    <public type="dimen" name="activity_vertical_margin" id="0x7f040001" />
+    <public type="string" name="app_name" id="0x7f050000" />
+    <public type="string" name="action_settings" id="0x7f050001" />
+    <public type="string" name="hello_world" id="0x7f050002" />
+    <public type="string" name="title_activity_other" id="0x7f050003" />
+    <public type="string" name="title_activity_special" id="0x7f050004" />
+    <public type="style" name="AppBaseTheme" id="0x7f060000" />
+    <public type="style" name="AppTheme" id="0x7f060001" />
+    <public type="menu" name="main" id="0x7f070000" />
+    <public type="menu" name="other" id="0x7f070001" />
+    <public type="menu" name="special" id="0x7f070002" />
+    <public type="id" name="webView2" id="0x7f080000" />
+    <public type="id" name="webView1" id="0x7f080001" />
+    <public type="id" name="songer_pic" id="0x7f080002" />
+    <public type="id" name="last_music" id="0x7f080003" />
+    <public type="id" name="paly_pause_music" id="0x7f080004" />
+    <public type="id" name="next_music" id="0x7f080005" />
+    <public type="id" name="username_view" id="0x7f080006" />
+    <public type="id" name="username_edit" id="0x7f080007" />
+    <public type="id" name="password_view" id="0x7f080008" />
+    <public type="id" name="password_edit" id="0x7f080009" />
+    <public type="id" name="action_settings" id="0x7f08000a" />
+</resources>
