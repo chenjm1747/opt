@@ -14,7 +14,7 @@
     <% @ls.each do |l| %>
       <tr>
         <td><%= link_to l.id, l_path(l) %></td>
-        <td><a href=http://hz.58.com/zufang/<%= l.a %>x.html>某经纪人发布的<%=l.a%></a></td>
+        <td><a href=http://hz.58.com/zufang/<%= l.a %>x.html>http://hz.58.com/zufang/<%=l.a%>.xhtml </a></td>
         <td><%=l l.created_at %></td>
       </tr>
     <% end %>
