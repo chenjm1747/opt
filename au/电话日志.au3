@@ -53,7 +53,7 @@ Exit
 
 Func _call();∫ÙΩ–≤È—Ø
    $oHTTP = ObjCreate("winhttp.winhttprequest.5.1")
-   $oHTTP.Open("post","http://10.10.20.240/xml?method=gw.account.login&id51=kk/*0905",false)
+   $oHTTP.Open("post","http://10.10.20.240:81/xml?method=gw.account.login&id51=kk/*0905",false)
    $oHTTP.setRequestHeader("Cache-Control", "no-cache")
    $oHTTP.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
    $oHTTP.Send ()
@@ -65,16 +65,16 @@ While 1
    $msg = GUIGetMsg()
    If $msg = $GUI_EVENT_CLOSE Then exit
    $alltel=""
-   $url="http://10.10.20.240/xml?method=gw.log.download&id=1&cookie="&$cookie&"tmp=0.06999614043161273"
+   $url="http://10.10.20.240:81/xml?method=gw.log.download&id=1&cookie="&$cookie&"tmp=0.06999614043161273"
    $oHTTP = ObjCreate("winhttp.winhttprequest.5.1")
    $oHTTP.Open("get",$url,false)
-   $oHTTP.setRequestHeader("Referer","http://10.10.20.240/msglogcfg.htm")
+   $oHTTP.setRequestHeader("Referer","http://10.10.20.240:81/msglogcfg.htm")
    $oHTTP.setRequestHeader("cookie",$cookie)
    $oHTTP.Send()
    for $i1=1 to 9
-	  $url="http://10.10.20.240/t"&$i1&".log"
+	  $url="http://10.10.20.240:81/t"&$i1&".log"
 	  $oHTTP.Open("get",$url,false)
-      $oHTTP.setRequestHeader("Referer","http://10.10.20.240/msglogcfg.htm")
+      $oHTTP.setRequestHeader("Referer","http://10.10.20.240:81/msglogcfg.htm")
 	  $oHTTP.setRequestHeader("cookie",$cookie)
 	  $oHTTP.Send()
 	  $s=$oHTTP.responseText
