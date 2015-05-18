@@ -8,24 +8,14 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:a) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @ls.each do |l| %>
       <tr>
         <td><%= link_to l.id, l_path(l) %></td>
-        <td><%= l.a %></td>
+        <td><a href=http://hz.58.com/zufang/<%= l.a %>x.html>某经纪人发布的<%=l.a%></a></td>
         <td><%=l l.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_l_path(l), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      l_path(l),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
       </tr>
     <% end %>
   </tbody>
