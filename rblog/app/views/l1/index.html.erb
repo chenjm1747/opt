@@ -7,6 +7,8 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:a) %></th>
+      <th><%= model_class.human_attribute_name(:user) %></th>
+      <th><%= model_class.human_attribute_name(:passwd58) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -16,6 +18,8 @@
       <tr>
         <td><%= link_to l1.id, l1_path(l1) %></td>
         <td><%= l1.a %></td>
+        <td><%= l1.user %></td>
+        <td><%= l1.passwd58 %></td>
         <td><%=l l1.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

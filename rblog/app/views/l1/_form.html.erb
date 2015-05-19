@@ -22,6 +22,20 @@
     </div>
     <%= error_span(@l1[:a]) %>
   </div>
+  <div class="control-group">
+    <%= f.label :user, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :user, :class => 'form-control' %>
+    </div>
+    <%= error_span(@l1[:user]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :passwd58, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :passwd58, :class => 'form-control' %>
+    </div>
+    <%= error_span(@l1[:passwd58]) %>
+  </div>
 
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
