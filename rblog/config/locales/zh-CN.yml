@@ -76,6 +76,8 @@ zh-CN:
         tag: "标签"
       user:
         name: "帐号"
+        username: "58账号"
+        passwd58: "58密码"
         password: "密码"
         Log_in: "登陆"
         password_confirmation: "再次确认密码"
