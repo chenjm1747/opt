@@ -30,6 +30,7 @@ zh-CN:
       p2pcompany: "公司"
       p2pproduct: "产品"
       azufang: '房屋顶贴'
+      l: '房源发布列表'
     attributes:
       p2pcompany:
         c_name: "公司名称"
