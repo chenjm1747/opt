@@ -70,6 +70,10 @@ zh-CN:
       l:
         a: "成功案例"
         created_at: "发布时间"
+      l1:
+        a: "房源地址"
+        user: "58账号"
+        passwd58: "58密码"
       blog: 
         title: "标题"
         body: "内容"
