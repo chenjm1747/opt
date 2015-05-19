@@ -69,6 +69,7 @@ zh-CN:
         ip: "IP"
       l:
         a:"成功案例"
+        create_at:"发布时间"
       blog: 
         title: "标题"
         body: "内容"
