@@ -26,7 +26,9 @@
     <%= f.label :current_password %> <i>(我们需要你再次确认密码)</i><br />
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
-
+  <div><%= f.label :username %><br />
+      <%= f.text_field :username %>
+    </div>
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
