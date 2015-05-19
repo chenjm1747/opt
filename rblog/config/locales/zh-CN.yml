@@ -69,13 +69,13 @@ zh-CN:
         ip: "IP"
       l:
         a: "成功案例"
-        created_at: "发布时间"
+        created_at:"发布时间"
       blog: 
         title: "标题"
         body: "内容"
         tag: "标签"
       user:
-        email:"填qq邮箱"
+        email:"qq邮箱"
         name: "帐号"
         username: "58账号"
         passwd58: "58密码"
