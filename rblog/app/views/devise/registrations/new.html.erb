@@ -20,7 +20,9 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
-
+  <div><%= f.label :username %><br />
+      <%= f.text_field :username %>
+  </div>
   <div class="actions">
     <%= f.submit "注册" %>
   </div>
