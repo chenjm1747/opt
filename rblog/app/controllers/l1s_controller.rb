@@ -69,6 +69,6 @@ class L1sController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def l1_params
-      params.require(:l1).permit(:a)
+      params.require(:l1).permit(:a,:user,:passwd58)
     end
 end
