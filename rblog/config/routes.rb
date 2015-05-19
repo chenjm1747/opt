@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :l1s
   resources :ls
   resources :welcomes
   devise_for :users
