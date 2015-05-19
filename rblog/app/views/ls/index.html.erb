@@ -7,6 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:a) %></th>
+      <th>状态</th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th>方式</th>
     </tr>
@@ -16,6 +17,7 @@
       <tr>
         <td><%= link_to l.id, l_path(l) %></td>
         <td><a href=http://hz.58.com/zufang/<%= l.a %>x.shtml>http://hz.58.com/zufang/<%=l.a%>x.shtml</a></td>
+        <td>成功</td>
         <td><%=l l.created_at %></td>
         <td>免费</td>
       </tr>
