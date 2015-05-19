@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :ls
   resources :welcomes
   devise_for :users
-  root :to => "welcomes#index"
+  root :to => "ls#index"
   resources :azufangs
   resources :p2pproducts
   resources :documents
