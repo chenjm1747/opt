@@ -75,6 +75,7 @@ zh-CN:
         body: "内容"
         tag: "标签"
       user:
+        email:"填qq邮箱"
         name: "帐号"
         username: "58账号"
         passwd58: "58密码"
