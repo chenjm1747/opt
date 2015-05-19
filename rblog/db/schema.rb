@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519095352) do
+ActiveRecord::Schema.define(version: 20150519132013) do
 
   create_table "azufangs", force: :cascade do |t|
     t.string   "username"
@@ -66,6 +66,12 @@ ActiveRecord::Schema.define(version: 20150519095352) do
     t.binary   "file_contents"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "l1s", force: :cascade do |t|
+    t.string   "a"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ls", force: :cascade do |t|
